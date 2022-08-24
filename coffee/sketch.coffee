@@ -1,8 +1,9 @@
 TITLE = 'Svenska bok- och mediemässan 2022-08-20'
 scenes = {}
-XOFF = 15 # pixels
-YOFF = 56 # pixels
-LF = 30
+XOFF = 0 # pixels
+YOFF = 0 # pixels
+DX = 0
+DY = 0
 
 minutes = (hhmm) ->
 	h = Math.floor hhmm/100
@@ -17,7 +18,7 @@ pretty = (m) ->
 	if min < 10 then min = '0' + min
 	h + ':' + min
 
-timestamp = minutes 1410
+timestamp = minutes 1512
 
 event = (scen,lst) ->
 	lst[0] = minutes lst[0]
@@ -64,37 +65,40 @@ event 'S8',[1635,25,"Författare","Einar Askestad"]
 drawTitle = ->
 	push()
 	textAlign CENTER
-	textSize 20
-	text TITLE,width/2,30
+	textSize 0.02*width
+	text TITLE,width/2,0.8*YOFF
 	pop()
 
 drawGrid = (ts,left) ->
 	push()
+	textSize 0.02*height
 	for i in range 19
-		x = XOFF + i * 10
-		line x, YOFF, x, 295
+		x = XOFF + i * DX
+		line x, YOFF, x, YOFF+8*DY
 	for i in range 9
-		y = 55+LF*i
-		line XOFF, y, XOFF+180, y
+		y = YOFF + DY*i
+		line XOFF, y, XOFF+18*DX, y
 	textAlign CENTER
-	text pretty(left),XOFF,50
+	text pretty(left),XOFF,0.9*YOFF
 	push()
+	x = XOFF+6*DX+DX/5*ts
 	fill "yellow"
-	text pretty(timestamp),XOFF+60+2*ts,50
+	text pretty(timestamp),x,0.9*YOFF
 	pop()
-	text pretty(left+90),XOFF+180,50
+	text pretty(left+90),XOFF+18*DX,0.9*YOFF
 	stroke "YELLOW"
-	line XOFF+60+2*ts, 65-10+1, XOFF+60+2*ts, 294
+	line x, YOFF, XOFF+6*DX+DX/5*ts, YOFF+8*DY
 	pop()
 
 drawBox = (i,event,ts) ->
 	hhmm = event[0]
 	duration = event[1]
-	x = XOFF + 60 + 2*(hhmm-timestamp+ts)
-	rect x, LF+40-LF/2+LF*i+4, duration*2, 22
-	d = duration+hhmm-timestamp
+	x = XOFF + 6*DX + DX * (hhmm-timestamp+ts)/5
+	rect x, YOFF + 0.25*DY + DY*i, duration/5*DX, 0.5*DY
+	d = duration + hhmm - timestamp
 	if hhmm > timestamp then d = duration
-	text d,x+2,LF+60-LF/2+LF*i
+	textSize 0.02*height
+	text d,x+0.005*width, YOFF + 0.6*DY + DY*i
 
 findIndex = (events, timestamp) ->
 	for index in range events.length
@@ -104,20 +108,21 @@ findIndex = (events, timestamp) ->
 
 drawHeader = ->
 	push()
-	xoff = 190
-	yoff = 310
+	textSize 0.02 * height
+	xoff = XOFF + 18*DX
+	yoff = YOFF + 8*DY
 	fill "red"
-	text "Scen",xoff+10,yoff+7
+	text "Scen",xoff + 0.2*DX, yoff + 0.8*DY
 	fill "yellow"
-	text "Start",xoff+45,yoff
+	text "Start",xoff + 0.2*DX, yoff + 0.6*DY
 	fill "white"
-	text "Längd",xoff+77,yoff
+	text "Längd",xoff + 3.2*DX, yoff + 0.6*DY
 	fill "blue"
-	text "Event",xoff+115,yoff
+	text "Event",xoff + 7*DX, yoff + 0.6*DY
 	fill "black"
-	text "Deltagare",xoff+45,yoff+15
+	text "Deltagare",xoff + 0.2*DX, yoff + DY
 	textAlign CENTER
-	text "En ruta = 5 minuter",XOFF+90,yoff+9
+	text "En ruta = 5 minuter",XOFF+9*DX, yoff + 0.8*DY
 	pop()
 
 drawInfo = (ts) ->
@@ -128,22 +133,24 @@ drawInfo = (ts) ->
 		if index == -1 then return
 		event = scenes[key][index]
 		drawBox i,event,ts
+		xoff = XOFF + 18*DX
 
 		push()
+		textSize 0.02*height
 		fill "gray"
 		sc()
-		rect 196,LF/2+41+LF*i,400,LF
+		rect xoff+2, YOFF+DY*i,width,DY
 
 		fill "red"
-		text key,200,3*LF/4+53+LF*i
+		text key, xoff+0.4*DX, YOFF + 0.6*DY + DY*i
 		fill "yellow"
-		text pretty(event[0]), 215, LF/2+53+LF*i
+		text pretty(event[0]), xoff+0.4*DX, YOFF + 0.4*DY + DY*i
 		fill "white"
-		text event[1], 255, LF/2+53+LF*i
+		text event[1], xoff+3.4*DX, YOFF + 0.4*DY + DY*i
 		fill "blue"
-		text event[2], 280, LF/2+53+LF*i
+		text event[2], xoff+5.4*DX, YOFF + 0.4*DY + DY*i
 		fill "black"
-		text event[3], 215, LF/2+68+LF*i
+		text event[3], xoff+0.4*DX, YOFF + 0.8*DY + DY*i
 		pop()
 
 draw = ->
@@ -159,9 +166,13 @@ mouseClicked = ->
 	if mouseY < YOFF
 		date = new Date()
 		timestamp = minutes 100 * date.getHours() + date.getMinutes()
-	else if XOFF < mouseX < XOFF + 180 and YOFF < mouseY < YOFF + 8*LF
+	else if XOFF < mouseX < XOFF + 18*DX and YOFF < mouseY < YOFF + 8*DY
 		ts = timestamp % 5
-		timestamp += Math.round((mouseX-XOFF)/2-ts)-30
+		timestamp += Math.round((mouseX-XOFF)*5/DX-ts)-30
 
 setup = ->
-	createCanvas 600,340
+	createCanvas window.innerWidth,window.innerHeight
+	XOFF = 0.02 * width # pixels
+	YOFF = 0.03 * width # pixels
+	DX = Math.round 0.01 * width
+	DY = Math.round 0.1 * height
