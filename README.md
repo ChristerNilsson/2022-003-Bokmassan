@@ -2,9 +2,9 @@
 
 [Prova på!](https://christernilsson.github.io/2022-003-Bokmassan)
 
-* Visar information för åtta scener, 90 minuter brett tidsfönster
+* Visar information för ett antal scener, 120 minuter brett tidsfönster
 * Uppdaterar sig automatiskt mha klockan
 * Alternativt fryses bilden på en tidpunkt man väljer genom att klicka i griden
-* Klicka på klockslaget för att återfå autonomt läge
+* Klicka utanför griden för att återfå autonomt läge
 * Kan användas från mobil browser
 

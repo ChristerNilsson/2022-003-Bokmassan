@@ -120,7 +120,7 @@ drawHeader = ->
 	xoff = XOFF + N*DX
 	yoff = 0
 
-	text "En ruta <=> 5 minuter. Klicka för annan tid.",XOFF, 0.2*DY
+	text "En ruta = 5 min. Klicka för annan tid.",XOFF, 0.2*DY
 
 	x0 = XOFF + N*DX + 0.4*DX
 	x1 = x0 + textWidth '  Scen'
