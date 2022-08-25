@@ -1,17 +1,19 @@
 TITLE = 'Svenska bok- och mediemässan 2022-08-20'
 scenes = {}
+SCENES = 0
 XOFF = 0 # pixels
 YOFF = 0 # pixels
 DX = 0
 DY = 0
 N = 24
+img = null
 
 minutes = (hhmm) ->
 	h = Math.floor hhmm/100
 	m = hhmm % 100
 	60*h + m
 
-pretty = (m) ->
+pretty = (m) -> # pretty(67) = "01:07"
 	min = m % 60
 	m = m - min
 	h = m/60
@@ -76,8 +78,8 @@ drawGrid = (ts,left) ->
 	textSize 0.02*height
 	for i in range N+1
 		x = XOFF + i * DX
-		line x, YOFF, x, YOFF+8*DY
-	for i in range 9
+		line x, YOFF, x, YOFF+SCENES*DY
+	for i in range SCENES+1
 		y = YOFF + DY*i
 		line XOFF, y, XOFF+N*DX, y
 	text pretty(left),XOFF,0.4*DY
@@ -90,7 +92,7 @@ drawGrid = (ts,left) ->
 	textAlign RIGHT
 	text pretty(left+120),XOFF+N*DX,0.4*DY
 	stroke "YELLOW"
-	line x, YOFF, XOFF+N/2*DX+DX/5*ts, YOFF+8*DY
+	line x, YOFF, XOFF+N/2*DX+DX/5*ts, YOFF+SCENES*DY
 	pop()
 
 drawBox = (i,event,ts) ->
@@ -118,7 +120,7 @@ drawHeader = ->
 	xoff = XOFF + N*DX
 	yoff = 0
 
-	text "En ruta motsvarar 5 minuter",XOFF, 0.2*DY
+	text "En ruta motsvarar fem minuter",XOFF, 0.2*DY
 
 	fill "red"
 	text "Scen",xoff + 0.4*DX, yoff + 0.2*DY
@@ -175,20 +177,28 @@ draw = ->
 	drawHeader()
 	drawGrid ts,left
 	drawInfo ts
+	w = 0.1 * width
+	h = 0.2 * height
+	image img,width-w-5,height-h-5,w,h
 
 mouseClicked = ->
 	if mouseY < YOFF and autonomous == false
 		autonomous = true
 		date = new Date()
 		timestamp = minutes 100 * date.getHours() + date.getMinutes()
-	else if XOFF < mouseX < XOFF + N*DX and YOFF < mouseY < YOFF + 8*DY
+	else if XOFF < mouseX < XOFF + N*DX and YOFF < mouseY < YOFF + SCENES*DY
 		autonomous = false 
 		ts = timestamp % 5
 		timestamp += Math.round((mouseX-XOFF)*5/DX-ts) - 60
 
+preload = ->
+	img = loadImage 'qr-code.png'
+
 setup = ->
 	createCanvas window.innerWidth,window.innerHeight
+	SCENES = _.size scenes
 	DX = Math.round 0.01 * width
-	DY = Math.round 0.117 * height
+	DY = 0.93 * height/SCENES
 	XOFF = 0.5 * DX # pixels
 	YOFF = 0.45 * DY # pixels
+	console.log SCENES
