@@ -120,19 +120,26 @@ drawHeader = ->
 	xoff = XOFF + N*DX
 	yoff = 0
 
-	text "En ruta motsvarar fem minuter",XOFF, 0.2*DY
+	text "En ruta <=> 5 minuter. Klicka för annan tid.",XOFF, 0.2*DY
+
+	x0 = XOFF + N*DX + 0.4*DX
+	x1 = x0 + textWidth '  Scen'
+	x2 = x1 + textWidth '  Start'
+	x3 = x2 + textWidth '  Längd'
+
+	y = yoff + 0.2*DY
 
 	fill "red"
-	text "Scen",xoff + 0.4*DX, yoff + 0.2*DY
+	text "Scen", x0, y
 	fill "yellow"
-	text "Start",xoff + 3.4*DX, yoff + 0.2*DY
+	text "Start",x1, y
 	fill "white"
-	text "Längd",xoff + 6.2*DX, yoff + 0.2*DY
+	text "Längd",x2, y
 	fill "blue"
-	text "Event",xoff + 10*DX, yoff + 0.2*DY
+	text "Event",x3, y
 
 	fill "black"
-	text "Deltagare",xoff + 0.4*DX, yoff + 0.4*DY
+	text "Deltagare",x0, yoff + 0.4*DY
 
 	pop()
 
@@ -144,7 +151,7 @@ drawInfo = (ts) ->
 		if index == -1 then return
 		event = scenes[key][index]
 		drawBox i,event,ts
-		xoff = XOFF + N*DX
+		xoff = XOFF + N*DX 
 
 		push()
 		textSize 0.03*height
@@ -153,17 +160,22 @@ drawInfo = (ts) ->
 		rect xoff+2, YOFF+DY*i,width,DY
 		y = YOFF + 0.45*DY + DY*i
 
+		x0 = xoff + 0.4 * DX
+		x1 = x0 + textWidth '  ' + key
+		x2 = x1 + textWidth '  ' + pretty event[0]
+		x3 = x2 + textWidth '  ' + event[1]
+
 		fill "red"
-		text key, xoff+0.4*DX, y
+		text key, x0, y
 		fill "yellow"
-		text pretty(event[0]), xoff+3.4*DX, y
+		text pretty(event[0]), x1, y
 		fill "white"
-		text event[1], xoff+8*DX, y
+		text event[1], x2, y
 		fill "blue"
-		text event[2], xoff+10.5*DX, y
+		text event[2], x3, y
 
 		fill "black"
-		text event[3], xoff+0.4*DX, YOFF + 0.75*DY + DY*i
+		text event[3], x0, YOFF + 0.75*DY + DY*i
 		pop()
 
 draw = ->
@@ -177,28 +189,26 @@ draw = ->
 	drawHeader()
 	drawGrid ts,left
 	drawInfo ts
-	w = 0.1 * width
-	h = 0.2 * height
-	image img,width-w-5,height-h-5,w,h
+	size = 0.1*width
+	image img,width-size-5,height-size-5,size,size
 
 mouseClicked = ->
-	if mouseY < YOFF and autonomous == false
-		autonomous = true
-		date = new Date()
-		timestamp = minutes 100 * date.getHours() + date.getMinutes()
-	else if XOFF < mouseX < XOFF + N*DX and YOFF < mouseY < YOFF + SCENES*DY
+	if XOFF < mouseX < XOFF + N*DX and YOFF < mouseY < YOFF + SCENES*DY
 		autonomous = false 
 		ts = timestamp % 5
 		timestamp += Math.round((mouseX-XOFF)*5/DX-ts) - 60
+	else
+		autonomous = true
+		date = new Date()
+		timestamp = minutes 100 * date.getHours() + date.getMinutes()
 
 preload = ->
 	img = loadImage 'qr-code.png'
 
 setup = ->
-	createCanvas window.innerWidth,window.innerHeight
+	createCanvas innerWidth,innerHeight
 	SCENES = _.size scenes
 	DX = Math.round 0.01 * width
 	DY = 0.93 * height/SCENES
 	XOFF = 0.5 * DX # pixels
 	YOFF = 0.45 * DY # pixels
-	console.log SCENES
