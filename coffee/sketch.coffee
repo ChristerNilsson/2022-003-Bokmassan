@@ -5,7 +5,7 @@ XOFF = 0 # pixels
 YOFF = 0 # pixels
 DX = 0
 DY = 0
-N = 24
+N = 24 # antal fem minuters perioder
 img = null
 
 minutes = (hhmm) ->
@@ -29,11 +29,22 @@ event = (scen,lst) ->
 	scenes[scen] ||= []
 	scenes[scen].push lst
 
+event 'S1',[1100,15,"Tal","Carl Lundström"] 
+event 'S1',[1120,45,"P1. Migrationspolitik","Lennart Matikainen, Arne Weinz, Hans Jensevik, Stefan Torssell, Evelina Hahne"] 
+event 'S1',[1215,40,"P6. Kriminalitet","Axel W Karlsson, Alexander Söderberg, Nils Littorin, Conny Andersson, Nick Alinia"] 
+event 'S1',[1300,20,"Tal","Mikael Willgert"] 
+event 'S1',[1330,35,"P2. Energipolitik/Kärnkraft","Peder Bokenhielm, Li Sam Björk, Jan Berger, Alexander Pohl"] 
+event 'S1',[1410,10,"Tal","Tobbe Larsson"] 
 event 'S1',[1425,45,"P3. Nato","Roger Richthoff, Johan Lindblad, Oscar Overgaard, Ulf Sandmark, Jeff Ahl"] 
 event 'S1',[1545,10,"Tal","Arne Weinz"]
 event 'S1',[1600,40,"P5. Klimatfrågan","Gösta Wallin"]
 event 'S1',[1650,10,"P4. Ekonomi","Henrik Sundin"]
 
+event 'S2',[1130,40,"P1. Demonstrationer","Max Winter, Håkan Bergmark, Johan Widén, Pierre Tinderfjäll, Emilia Ögell"]
+event 'S2',[1220,10,"Tal","Eva Donell"]
+event 'S2',[1235,35,"P3. Intresseorganisationer","Ingrid Carlqvist, Peder Bokenhielm, René Malmgren, Andreas Hultén"]
+event 'S2',[1320,10,"Tal","Alfred Westh"]
+event 'S2',[1335,50,"P4. Rörelser","Marianne Liljeholt, Miranda Törnqvist, Glenn Dormer, Mikael Cromsjö, Alfred Westh, Maneka Helleberg"]
 event 'S2',[1510,10,"HMF-Medalj utdelning","Rasmus Paludan"]
 event 'S2',[1525,10,"Tal","Robert Mathiasson"]
 event 'S2',[1540,35,"P2. Nätverk","David Bergqvist"]
@@ -87,6 +98,8 @@ drawGrid = (ts,left) ->
 	x = XOFF+N/2*DX+DX/5*ts
 	fill "yellow"
 	textAlign CENTER
+	if autonomous then fill "yellow"
+	else fill "black"
 	text pretty(timestamp),x,0.4*DY
 	pop()
 	textAlign RIGHT
@@ -151,7 +164,7 @@ drawInfo = (ts) ->
 		if index == -1 then return
 		event = scenes[key][index]
 		drawBox i,event,ts
-		xoff = XOFF + N*DX 
+		xoff = XOFF + N*DX
 
 		push()
 		textSize 0.03*height
@@ -180,7 +193,7 @@ drawInfo = (ts) ->
 
 draw = ->
 	bg 0.5
-	if autonomous # autonomous
+	if autonomous
 		date = new Date()
 		timestamp = minutes 100 * date.getHours() + date.getMinutes()
 	ts = timestamp % 5
