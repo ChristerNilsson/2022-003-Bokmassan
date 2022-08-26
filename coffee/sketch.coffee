@@ -63,11 +63,11 @@ event 'S3',[1505,10,"Tal","Nils Littorin"]
 event 'S3',[1520,35,"P4. Övervakningsmetoder","Rikard Högberg, Åke blomdahl, Lena Ohlson, Ingemar Ljungqvist"]
 event 'S3',[1615,35,"P1. Personer","Johan Lindblad, Stefan Torsell, Tommy Ulmnäs, Christian Peterson, Mattias Dahlgren"]
 
-event 'S4',[1225,30,"D3. Ryssland eller Ukraina","Arne Weinz, Izabella Jarvandi, Gösta Wallin, Erik Almqvist"]
+event 'S4',[1225,30,"D3. Ryssland eller Ukraina?","Arne Weinz, Izabella Jarvandi, Gösta Wallin, Erik Almqvist"]
 event 'S4',[1305,20,"D1. Abortfrågan","Nick Alinia, Johanna Carsbrant, Miranda Törnqvist"]
 event 'S4',[1335,25,"D6. Mångkultur för/emot?","Izabella Jarvandi, Karl-Olov Arnstberg, Andreas Sidkvist"]
 event 'S4',[1410,25,"D10. Uthängningar eller inte?","Izabella Jarvandi, Christian Peterson, Robert Mathiason"]
-event 'S4',[1445,20,"D8. AI Hot eller möjlighet","Izabella Jarvandi, Tobbe Larsson, Mikael Cromsjö"]
+event 'S4',[1445,20,"D8. AI Hot eller möjlighet?","Izabella Jarvandi, Tobbe Larsson, Mikael Cromsjö"]
 event 'S4',[1515,30,"D9. Klimatbluff eller reellt hot?","Izabella Jarvandi, Lars Bern, Alfred Westh"]
 event 'S4',[1555,20,"D7. Bränna koranen","Christian Peterson, Rasmus Paludan, Tobbe Larsson"]
 event 'S4',[1625,30,"D5. NATO för/emot?","Izabella Jarvandi, Roger Richthoff, Tage Perntz"]
@@ -89,7 +89,7 @@ event 'S6',[1615,30,"Ek6. Skatterna","Micael Hamberg"]
 
 event 'S7',[1220,30,"Parti8. Nix to the Six","Emilia Ögell, Hans Jensevik"]
 event 'S7',[1300,15,"Parti6. Nyttiga Svenne","Emilia Ögell, Ylva Franzén & Johan Lindblad"]
-event 'S7',[1325,30,"AfS","Erik Almqvist, Gustav Kasselstrand, Andreas Feymark"]
+event 'S7',[1325,30,"Parti1. AfS","Erik Almqvist, Gustav Kasselstrand, Andreas Feymark"]
 event 'S7',[1400,25,"Parti10. Europeiska Arbetarpartiet","Erik Almqvist, Kjell Sundqvist"]
 event 'S7',[1435,15,"Parti9. Partiet Frihet","Emilia Ögell, Max Winter & Natalie Jonsson"]
 event 'S7',[1500,30,"Parti4. MOD","Erik Almqvist, Andreas Sidqvist"]
@@ -113,6 +113,7 @@ event 'S8',[1635,25,"Författare","Einar Askestad"]
 
 drawTitle = ->
 	push()
+	fill 'darkgray'
 	textAlign RIGHT
 	textSize 0.02*width
 	text TITLE,0.995*width,0.8*YOFF
@@ -120,6 +121,8 @@ drawTitle = ->
 
 drawGrid = (ts,left) ->
 	push()
+
+	stroke 'darkgray'
 	textSize 0.02*height
 	for i in range N+1
 		x = XOFF + i * DX
@@ -127,16 +130,19 @@ drawGrid = (ts,left) ->
 	for i in range SCENES+1
 		y = YOFF + DY*i
 		line XOFF, y, XOFF+N*DX, y
+
+	fill "darkgray"
 	text pretty(left),XOFF,0.4*DY
 	push()
 	x = XOFF+N/2*DX+DX/5*ts
 	fill "yellow"
 	textAlign CENTER
 	if autonomous then fill "yellow"
-	else fill "black"
+	else fill "darkgray"
 	text pretty(timestamp),x,0.4*DY
 	pop()
 	textAlign RIGHT
+	fill "darkgray"
 	text pretty(left+120),XOFF+N*DX,0.4*DY
 	stroke "YELLOW"
 	line x, YOFF, XOFF+N/2*DX+DX/5*ts, YOFF+SCENES*DY
@@ -171,7 +177,7 @@ drawBox = (i,event,ts,j) ->
 findIndex = (events, timestamp) ->
 	for index in range events.length
 		event = events[index]
-		if timestamp <= event[0]+event[1] then return index
+		if timestamp < event[0]+event[1] then return index
 	-1
 
 drawHeader = ->
@@ -204,11 +210,13 @@ drawHeader = ->
 	text "Start",x1, y
 	fill "white"
 	text "Längd",x2, y
-	fill "blue"
+	fill "lightblue"
 	text "Event",x3, y
 
-	fill "black"
-	text "Deltagare  (En ruta = 5 min. Klicka för att byta tid)",x0, yoff + 0.4*DY
+	fill "darkgray"
+	text "Deltagare",x0, yoff + 0.4*DY
+	text "(En ruta = 5 min)",x4+5*DX, y
+	text "(Klicka för att byta tid)",x4+5*DX, yoff + 0.4*DY
 
 	pop()
 
@@ -230,7 +238,7 @@ drawInfo = (ts) ->
 			xoff = XOFF + N*DX
 			push()
 			textSize 0.03*height
-			fill "gray"
+			fill "black"
 			sc()
 			rect xoff+2, YOFF+DY*i,width,DY
 			y = YOFF + 0.45*DY + DY*i
@@ -246,15 +254,15 @@ drawInfo = (ts) ->
 			text pretty(event[0]), x1, y
 			fill "white"
 			text event[1], x2, y
-			fill "blue"
+			fill "lightblue"
 			text event[2], x3, y
 
-			fill "black"
+			fill "darkgray"
 			text event[3], x0, YOFF + 0.75*DY + DY*i
 			pop()
 
 draw = ->
-	bg 0.5
+	bg 0
 	if autonomous
 		date = new Date()
 		timestamp = minutes 100 * date.getHours() + date.getMinutes()
@@ -265,6 +273,9 @@ draw = ->
 	drawInfo ts
 	drawHeader()
 	size = 0.1*width
+	fill "gray"
+	textSize 0.02*height
+	text "Länk:",width-size,height-size-10
 	image img,width-size-5,height-size-5,size,size
 
 mouseClicked = ->
