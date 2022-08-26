@@ -8,3 +8,6 @@
 * Klicka utanför griden för att återfå autonomt läge
 * Kan användas från mobil browser
 
+* Röd  box = avslutade event
+* Gul  box = pågående event
+* Grön box = kommande event

@@ -8,6 +8,10 @@ DY = 0
 N = 24 # antal fem minuters perioder
 img = null
 
+avslutade = 0
+pågående = 0
+kommande = 0 
+
 minutes = (hhmm) ->
 	h = Math.floor hhmm/100
 	m = hhmm % 100
@@ -37,7 +41,7 @@ event 'S1',[1330,35,"P2. Energipolitik/Kärnkraft","Peder Bokenhielm, Li Sam Bj�
 event 'S1',[1410,10,"Tal","Tobbe Larsson"] 
 event 'S1',[1425,45,"P3. Nato","Roger Richthoff, Johan Lindblad, Oscar Overgaard, Ulf Sandmark, Jeff Ahl"] 
 event 'S1',[1545,10,"Tal","Arne Weinz"]
-event 'S1',[1600,40,"P5. Klimatfrågan","Gösta Wallin"]
+event 'S1',[1600,40,"P5. Klimatfrågan","Gösta Wallin, Staffan Mörner, Sture Åström, Alfred Westh"]
 event 'S1',[1650,10,"P4. Ekonomi","Henrik Sundin"]
 
 event 'S2',[1130,40,"P1. Demonstrationer","Max Winter, Håkan Bergmark, Johan Widén, Pierre Tinderfjäll, Emilia Ögell"]
@@ -47,31 +51,61 @@ event 'S2',[1320,10,"Tal","Alfred Westh"]
 event 'S2',[1335,50,"P4. Rörelser","Marianne Liljeholt, Miranda Törnqvist, Glenn Dormer, Mikael Cromsjö, Alfred Westh, Maneka Helleberg"]
 event 'S2',[1510,10,"HMF-Medalj utdelning","Rasmus Paludan"]
 event 'S2',[1525,10,"Tal","Robert Mathiasson"]
-event 'S2',[1540,35,"P2. Nätverk","David Bergqvist"]
+event 'S2',[1540,35,"P2. Nätverk","David Bergqvist, Tobbe Larsson, Eva Donell, Andreas Jansson"]
 event 'S2',[1625,10,"Tal","Jonas Nilsson"]
 event 'S2',[1650,10,"P4. Alternativmedier","Carl Lundström"]
 
+event 'S3',[1140,40,"P2. Organisationer","Johan Lindblad, Mikael Fjällid, Jesper Johansson, Aida Reva, Love Romert"]
+event 'S3',[1230,45,"P5. Agenda 2030 och","Carl Lundström, Hans Erixon, Torbjörn Holkner, Sture Åström, Gustav Kasselstrand"]
+event 'S3',[1335,50,"P3. Metoder","Alexander, Helen Osieja, Felicia Eriksson, Johannes Haddad, Robert Rosenkvist, Fabian Fjälling"]
+event 'S3',[1435,25,"Livepodd","Jonas Nilsson, Anton Stigermark"]
 event 'S3',[1505,10,"Tal","Nils Littorin"]
-event 'S3',[1520,35,"P4. Övervakningsmetoder","Rikard Högberg"]
-event 'S3',[1615,35,"P1. Personer","Johan Lindblad"]
+event 'S3',[1520,35,"P4. Övervakningsmetoder","Rikard Högberg, Åke blomdahl, Lena Ohlson, Ingemar Ljungqvist"]
+event 'S3',[1615,35,"P1. Personer","Johan Lindblad, Stefan Torsell, Tommy Ulmnäs, Christian Peterson, Mattias Dahlgren"]
 
-event 'S4',[1515,30,"D9. Klimatbluff eller reellt hot?","Izabella Jarvandi"]
-event 'S4',[1555,20,"D7. Bränna koranen","Christian Peterson"]
-event 'S4',[1625,30,"D5. NATO för/emot?","Izabella Jarvandi"]
+event 'S4',[1225,30,"D3. Ryssland eller Ukraina","Arne Weinz, Izabella Jarvandi, Gösta Wallin, Erik Almqvist"]
+event 'S4',[1305,20,"D1. Abortfrågan","Nick Alinia, Johanna Carsbrant, Miranda Törnqvist"]
+event 'S4',[1335,25,"D6. Mångkultur för/emot?","Izabella Jarvandi, Karl-Olov Arnstberg, Andreas Sidkvist"]
+event 'S4',[1410,25,"D10. Uthängningar eller inte?","Izabella Jarvandi, Christian Peterson, Robert Mathiason"]
+event 'S4',[1445,20,"D8. AI Hot eller möjlighet","Izabella Jarvandi, Tobbe Larsson, Mikael Cromsjö"]
+event 'S4',[1515,30,"D9. Klimatbluff eller reellt hot?","Izabella Jarvandi, Lars Bern, Alfred Westh"]
+event 'S4',[1555,20,"D7. Bränna koranen","Christian Peterson, Rasmus Paludan, Tobbe Larsson"]
+event 'S4',[1625,30,"D5. NATO för/emot?","Izabella Jarvandi, Roger Richthoff, Tage Perntz"]
 
+event 'S5',[1140,45,"Personporträtt 2","Zoia Zakariasdotter, Ylva Franzén"]
+event 'S5',[1235,40,"Personporträtt 4","Jan Tullberg"]
+event 'S5',[1325,40,"Personporträtt 5","Lars Bern"]
+event 'S5',[1415,40,"Personporträtt 3","Selma Gamaleldin"]
 event 'S5',[1505,40,"Personporträtt 6","Patrik Engellau"]
 event 'S5',[1555,40,"Personporträtt 1","Carl Lundström"]
-event 'S5',[1645,15,"Inblick med Nick","Nick Alinia"]
+event 'S5',[1645,15,"Inblick med Nick","Nick Alinia, Rasmus Paludan"]
 
+event 'S6',[1235,35,"Ek4. Elpriserna","Magnus Stenlund, Jan Blomgren"]
+event 'S6',[1320,30,"Ek3. Räntorna","Peter Albelin"]
+event 'S6',[1400,30,"Ek2. Investeringar","Henrik Sundin"]
 event 'S6',[1455,30,"Ek5. Matpriserna","Olle Felten"]
 event 'S6',[1535,30,"Ek1. Inflationen","Jan Tullberg"]
 event 'S6',[1615,30,"Ek6. Skatterna","Micael Hamberg"]
 
-event 'S7',[1500,30,"Parti4. MOD","Erik Almqvist"]
+event 'S7',[1220,30,"Parti8. Nix to the Six","Emilia Ögell, Hans Jensevik"]
+event 'S7',[1300,15,"Parti6. Nyttiga Svenne","Emilia Ögell, Ylva Franzén & Johan Lindblad"]
+event 'S7',[1325,30,"AfS","Erik Almqvist, Gustav Kasselstrand, Andreas Feymark"]
+event 'S7',[1400,25,"Parti10. Europeiska Arbetarpartiet","Erik Almqvist, Kjell Sundqvist"]
+event 'S7',[1435,15,"Parti9. Partiet Frihet","Emilia Ögell, Max Winter & Natalie Jonsson"]
+event 'S7',[1500,30,"Parti4. MOD","Erik Almqvist, Andreas Sidqvist"]
 event 'S7',[1535,30,"Parti7. Malmölistan","Erik Almqvist, Nils Littorin"]
 event 'S7',[1615,25,"Parti11. Direktdemokraterna","Erik Almqvist, Lotte Johansson"]
 event 'S7',[1650,10,"Parti5. Kristna Värdepartiet","Emilia Ögell"]
 
+event 'S8',[1145,20,"Film","Ingrid Carlqvist"]
+event 'S8',[1210,10,"Fotograf","Lotte Johansson"]
+event 'S8',[1225,20,"TV-spel","William Hahne"]
+event 'S8',[1250,20,"Film","Jonas Nilsson"]
+event 'S8',[1320,25,"Musik","Ulf Bejerstrand"]
+event 'S8',[1355,20,"Musik","Martina Edoff"]
+event 'S8',[1415,5,"Sång","David Berg"]
+event 'S8',[1425,20,"Film","Jon Rekdahl"]
+event 'S8',[1450,10,"Konst","Åke Blomdahl"]
 event 'S8',[1505,10,"Konst","Dan Park"]
 event 'S8',[1525,30,"Musik","Fredrik Larsson, Joakim"]
 event 'S8',[1605,25,"Musik","Miqael Hicks"]
@@ -108,17 +142,30 @@ drawGrid = (ts,left) ->
 	line x, YOFF, XOFF+N/2*DX+DX/5*ts, YOFF+SCENES*DY
 	pop()
 
-drawBox = (i,event,ts) ->
+drawBox = (i,event,ts,j) ->
 	hhmm = event[0]
 	duration = event[1]
 	push()
 	x = XOFF + N/2*DX + DX * (hhmm-timestamp+ts)/5
+
+	if event[0] > timestamp 
+		fill "lightgreen"
+		kommande++
+	else if event[0]+event[1] <= timestamp 
+		fill "red"
+		avslutade++
+	else
+		fill "yellow"
+		pågående++
+
 	rect x, YOFF + 0.25*DY + DY*i, duration/5*DX, 0.5*DY
 	d = duration + hhmm - timestamp
 	if hhmm > timestamp then d = duration
-	textSize 0.02*height
-	textAlign CENTER
-	text d,x+duration/5*DX/2, YOFF + 0.6*DY + DY*i
+	if d > 0 
+		textSize 0.02*height
+		textAlign CENTER
+		fill "black"
+		text d,x+duration/5*DX/2, YOFF + 0.6*DY + DY*i
 	pop()
 
 findIndex = (events, timestamp) ->
@@ -133,15 +180,24 @@ drawHeader = ->
 	xoff = XOFF + N*DX
 	yoff = 0
 
-	text "En ruta = 5 min. Klicka för annan tid.",XOFF, 0.2*DY
+	fill "red"
+	text avslutade + " avslutade", XOFF, 0.2*DY
+	textAlign CENTER
+	fill 'yellow'
+	text pågående + " pågående", XOFF+N/2*DX, 0.2*DY
+	textAlign RIGHT
+	fill "lightgreen"
+	text kommande + " kommande", xoff, 0.2*DY
 
 	x0 = XOFF + N*DX + 0.4*DX
 	x1 = x0 + textWidth '  Scen'
 	x2 = x1 + textWidth '  Start'
 	x3 = x2 + textWidth '  Längd'
+	x4 = x3 + textWidth '  Event'
 
 	y = yoff + 0.2*DY
 
+	textAlign LEFT
 	fill "red"
 	text "Scen", x0, y
 	fill "yellow"
@@ -153,43 +209,50 @@ drawHeader = ->
 
 	fill "black"
 	text "Deltagare",x0, yoff + 0.4*DY
+	text "En ruta = 5 min. Klicka för att byta tid.",x4, 0.2*DY
 
 	pop()
 
 drawInfo = (ts) ->
+	avslutade = 0
+	pågående = 0
+	kommande = 0 
+
 	keys = _.keys scenes
 	for i in range keys.length
 		key = keys[i]
 		index = findIndex scenes[key],timestamp
-		if index == -1 then return
+
 		event = scenes[key][index]
-		drawBox i,event,ts
-		xoff = XOFF + N*DX
+		for j in range _.size scenes[key]
+			drawBox i,scenes[key][j],ts
 
-		push()
-		textSize 0.03*height
-		fill "gray"
-		sc()
-		rect xoff+2, YOFF+DY*i,width,DY
-		y = YOFF + 0.45*DY + DY*i
+		if index != -1
+			xoff = XOFF + N*DX
+			push()
+			textSize 0.03*height
+			fill "gray"
+			sc()
+			rect xoff+2, YOFF+DY*i,width,DY
+			y = YOFF + 0.45*DY + DY*i
 
-		x0 = xoff + 0.4 * DX
-		x1 = x0 + textWidth '  ' + key
-		x2 = x1 + textWidth '  ' + pretty event[0]
-		x3 = x2 + textWidth '  ' + event[1]
+			x0 = xoff + 0.4 * DX
+			x1 = x0 + textWidth '  ' + key
+			x2 = x1 + textWidth '  ' + pretty event[0]
+			x3 = x2 + textWidth '  ' + event[1]
 
-		fill "red"
-		text key, x0, y
-		fill "yellow"
-		text pretty(event[0]), x1, y
-		fill "white"
-		text event[1], x2, y
-		fill "blue"
-		text event[2], x3, y
+			fill "red"
+			text key, x0, y
+			fill "yellow"
+			text pretty(event[0]), x1, y
+			fill "white"
+			text event[1], x2, y
+			fill "blue"
+			text event[2], x3, y
 
-		fill "black"
-		text event[3], x0, YOFF + 0.75*DY + DY*i
-		pop()
+			fill "black"
+			text event[3], x0, YOFF + 0.75*DY + DY*i
+			pop()
 
 draw = ->
 	bg 0.5
@@ -199,9 +262,9 @@ draw = ->
 	ts = timestamp % 5
 	left = timestamp - ts - 60
 	drawTitle()
-	drawHeader()
 	drawGrid ts,left
 	drawInfo ts
+	drawHeader()
 	size = 0.1*width
 	image img,width-size-5,height-size-5,size,size
 
