@@ -119,9 +119,8 @@ drawTitle = ->
 	text TITLE,0.995*width,0.8*YOFF
 	pop()
 
-drawGrid = (ts,left) ->
+rutnät = ->
 	push()
-
 	stroke 'darkgray'
 	textSize 0.02*height
 	for i in range N+1
@@ -130,7 +129,10 @@ drawGrid = (ts,left) ->
 	for i in range SCENES+1
 		y = YOFF + DY*i
 		line XOFF, y, XOFF+N*DX, y
+	pop()
 
+tider = (ts,left) ->
+	push()
 	fill "darkgray"
 	text pretty(left),XOFF,0.4*DY
 	push()
@@ -147,6 +149,10 @@ drawGrid = (ts,left) ->
 	stroke "YELLOW"
 	line x, YOFF, XOFF+N/2*DX+DX/5*ts, YOFF+SCENES*DY
 	pop()
+
+drawGrid = (ts,left) ->
+	rutnät()
+	tider ts,left
 
 drawBox = (i,event,ts,j) ->
 	hhmm = event[0]
