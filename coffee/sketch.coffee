@@ -158,7 +158,7 @@ drawBox = (i,event,ts,j) ->
 		fill "yellow"
 		pågående++
 
-	rect x, YOFF + 0.25*DY + DY*i, duration/5*DX, 0.5*DY
+	rect x, YOFF + 0.25*DY + DY*i, duration/5*DX, 0.5*DY, 6
 	d = duration + hhmm - timestamp
 	if hhmm > timestamp then d = duration
 	if d > 0 
@@ -208,8 +208,7 @@ drawHeader = ->
 	text "Event",x3, y
 
 	fill "black"
-	text "Deltagare",x0, yoff + 0.4*DY
-	text "En ruta = 5 min. Klicka för att byta tid.",x4, 0.2*DY
+	text "Deltagare  (En ruta = 5 min. Klicka för att byta tid)",x0, yoff + 0.4*DY
 
 	pop()
 
@@ -283,6 +282,7 @@ preload = ->
 
 setup = ->
 	createCanvas innerWidth,innerHeight
+	frameRate 10
 	SCENES = _.size scenes
 	DX = Math.round 0.01 * width
 	DY = 0.93 * height/SCENES
