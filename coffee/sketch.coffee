@@ -18,6 +18,7 @@ minutes = (hhmm) ->
 	60*h + m
 
 pretty = (m) -> # pretty(67) = "01:07"
+	m = m %% (24*60)
 	min = m % 60
 	m = m - min
 	h = m/60
@@ -289,6 +290,7 @@ mouseClicked = ->
 		autonomous = false 
 		ts = timestamp % 5
 		timestamp += Math.round((mouseX-XOFF)*5/DX-ts) - 60
+		timestamp = timestamp %% (24*60)
 	else
 		autonomous = true
 		date = new Date()
