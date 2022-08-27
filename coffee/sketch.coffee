@@ -123,7 +123,7 @@ drawTitle = ->
 	push()
 	fill 'darkgray'
 	textAlign RIGHT
-	textSize 0.019 * width
+	textSize 0.016 * width
 	text TITLE,0.995*width,0.6*YOFF
 	pop()
 
@@ -141,6 +141,7 @@ rutnät = ->
 
 tider = (ts,left) ->
 	push()
+	textSize 0.02*height
 	fill "darkgray"
 	text pretty(left),XOFF,0.4*DY
 	push()
@@ -182,7 +183,7 @@ drawBox = (i,event,ts,j) ->
 	d = duration + hhmm - timestamp
 	if hhmm > timestamp then d = duration
 	if d > 0 
-		textSize 0.02*height
+		textSize 0.03*height
 		textAlign CENTER
 		fill "black"
 		text d,x+duration/5*DX/2, YOFF + 0.6*DY + DY*i
@@ -302,10 +303,10 @@ draw = ->
 	drawInfo ts
 	drawHeader()
 	size = 0.1*width
-	fill "gray"
-	textSize 0.02*height
-	text "Länk:",width-size,height-size-10
-	image img,width-size-5,height-size-5,size,size
+	#fill "gray"
+	#textSize 0.02*height
+	#text "Länk:",width-size,height-size-10
+	image img,5,height-size-5,size,size
 
 # mouseClicked = ->
 # 	if XOFF < mouseX < XOFF + N*DX and YOFF < mouseY < YOFF + SCENES*DY
