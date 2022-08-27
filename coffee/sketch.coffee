@@ -116,8 +116,8 @@ drawTitle = ->
 	push()
 	fill 'darkgray'
 	textAlign RIGHT
-	textSize 0.02*width
-	text TITLE,0.995*width,0.8*YOFF
+	textSize 0.019 * width
+	text TITLE,0.995*width,0.6*YOFF
 	pop()
 
 rutnät = ->
@@ -195,12 +195,21 @@ drawHeader = ->
 
 	fill "red"
 	text avslutade + " avslutade", XOFF, 0.2*DY
+
 	textAlign CENTER
+	fill "darkgray"
+	textStyle ITALIC
+	text "En ruta = 5 min",XOFF+N/4*DX, 0.4*DY
+	text "Klicka för att byta tid",XOFF+3*N/4*DX, 0.4*DY
+	textStyle NORMAL
+
 	fill 'yellow'
 	text pågående + " pågående", XOFF+N/2*DX, 0.2*DY
+	
 	textAlign RIGHT
 	fill "lightgreen"
 	text kommande + " kommande", xoff, 0.2*DY
+
 
 	x0 = XOFF + N*DX + 0.4*DX
 	x1 = x0 + textWidth '  Scen'
@@ -222,10 +231,15 @@ drawHeader = ->
 
 	fill "darkgray"
 	text "Deltagare",x0, yoff + 0.4*DY
-	text "(En ruta = 5 min)",x4+5*DX, y
-	text "(Klicka för att byta tid)",x4+5*DX, yoff + 0.4*DY
 
 	pop()
+
+drawDeltagare = (deltagare, x0, y1, y2) ->
+	arr = deltagare.split ', '
+	i = Math.round arr.length/2
+	fill "darkgray"
+	text join(arr[0...i],', '), x0, y1
+	text join(arr[i..arr.len], ', '), x0, y2
 
 drawInfo = (ts) ->
 	avslutade = 0
@@ -248,7 +262,9 @@ drawInfo = (ts) ->
 			fill "black"
 			sc()
 			rect xoff+2, YOFF+DY*i,width,DY
-			y = YOFF + 0.45*DY + DY*i
+			y0 = YOFF + 0.3 * DY + DY*i
+			y1 = y0 + 0.3 * DY
+			y2 = y1 + 0.3 * DY
 
 			x0 = xoff + 0.4 * DX
 			x1 = x0 + textWidth '  ' + key
@@ -256,16 +272,15 @@ drawInfo = (ts) ->
 			x3 = x2 + textWidth '  ' + event[1]
 
 			fill "red"
-			text key, x0, y
+			text key, x0, y0
 			fill "yellow"
-			text pretty(event[0]), x1, y
+			text pretty(event[0]), x1, y0
 			fill "white"
-			text event[1], x2, y
+			text event[1], x2, y0
 			fill "lightblue"
-			text event[2], x3, y
+			text event[2], x3, y0
 
-			fill "darkgray"
-			text event[3], x0, YOFF + 0.75*DY + DY*i
+			drawDeltagare event[3], x0, y1, y2
 			pop()
 
 draw = ->
@@ -303,7 +318,7 @@ setup = ->
 	createCanvas innerWidth,innerHeight
 	frameRate 10
 	SCENES = _.size scenes
-	DX = Math.round 0.01 * width
+	DX = Math.round 0.02 * width
 	DY = 0.93 * height/SCENES
 	XOFF = 0.5 * DX # pixels
 	YOFF = 0.45 * DY # pixels
