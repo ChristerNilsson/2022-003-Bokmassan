@@ -5,8 +5,15 @@ XOFF = 0 # pixels
 YOFF = 0 # pixels
 DX = 0
 DY = 0
+FIRST = 0 # första musklickets x-koordinat
 N = 24 # antal fem minuters perioder
 img = null
+
+lastTouchEnded = 0
+released = true
+startX = 0
+startY = 0
+prevTimestamp = 0 
 
 avslutade = 0
 pågående = 0
@@ -200,7 +207,7 @@ drawHeader = ->
 	fill "darkgray"
 	textStyle ITALIC
 	text "En ruta = 5 min",XOFF+N/4*DX, 0.4*DY
-	text "Klicka för att byta tid",XOFF+3*N/4*DX, 0.4*DY
+	text "Svep för att byta tid",XOFF+3*N/4*DX, 0.4*DY
 	textStyle NORMAL
 
 	fill 'yellow'
@@ -300,16 +307,61 @@ draw = ->
 	text "Länk:",width-size,height-size-10
 	image img,width-size-5,height-size-5,size,size
 
-mouseClicked = ->
+# mouseClicked = ->
+# 	if XOFF < mouseX < XOFF + N*DX and YOFF < mouseY < YOFF + SCENES*DY
+# 		FIRST = mouseX
+# 		console.log 'mouseClicked',FIRST
+# 	else
+# 		autonomous = true
+# 		date = new Date()
+# 		timestamp = minutes 100 * date.getHours() + date.getMinutes()
+
+# mouseReleased = (fxn) ->
+# 	SECOND = mouseX
+# 	console.log 'mouseReleased',SECOND,fxn
+# 	autonomous = false 
+# 	ts = timestamp % 5
+# 	timestamp += Math.round((SECOND-FIRST)*5/DX-ts) # - 60
+# 	timestamp = timestamp %% (24*60)
+
+
+touchStarted = (event) ->
+	event.preventDefault()
+	lastTouchStarted = new Date()
+	if not released then return 
+
 	if XOFF < mouseX < XOFF + N*DX and YOFF < mouseY < YOFF + SCENES*DY
-		autonomous = false 
-		ts = timestamp % 5
-		timestamp += Math.round((mouseX-XOFF)*5/DX-ts) - 60
-		timestamp = timestamp %% (24*60)
 	else
 		autonomous = true
 		date = new Date()
 		timestamp = minutes 100 * date.getHours() + date.getMinutes()
+		released = true
+		return
+
+	released = false
+	startX = mouseX
+	startY = mouseY
+	prevTimestamp = timestamp
+	false
+
+touchMoved = (event) ->
+	event.preventDefault()
+	if released then return
+	autonomous = false 
+	ts = 0 #timestamp % 5
+	timestamp = prevTimestamp - Math.round((mouseX-startX)*5/DX-ts) # - 60
+	timestamp = timestamp %% (24*60)
+	timestamp = timestamp - timestamp % 5
+	false
+
+touchEnded = (event) ->
+	event.preventDefault()
+	if (new Date()) - lastTouchEnded < 500
+		lastTouchEnded = new Date()
+		return # to prevent double bounce
+	if released then return
+	released = true
+	false
 
 preload = ->
 	img = loadImage 'qr-code.png'
