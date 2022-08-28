@@ -8,13 +8,14 @@ DY = 0
 FIRST = 0 # första musklickets x-koordinat
 N = 24 # antal fem minuters perioder
 img = null
-deltagarna = []
+scrollers = []
 
 lastTouchEnded = 0
 released = true
 startX = 0
 startY = 0
 prevTimestamp = 0 
+lastTimestamp = 0
 
 avslutade = 0
 pågående = 0
@@ -244,12 +245,21 @@ drawHeader = ->
 
 	pop()
 
-drawDeltagare = (deltagare, x0, y1, y2) ->
-	arr = deltagare.split ', '
-	i = Math.round arr.length/2
-	fill "darkgray"
-	text join(arr[0...i],', '), x0, y1
-	text join(arr[i..arr.len], ', '), x0, y2
+createScrollers = () ->
+	scrollers = []
+	keys = _.keys scenes
+	for i in range keys.length
+		key = keys[i]
+		index = findIndex scenes[key],timestamp
+		event = scenes[key][index]
+
+		if index != -1
+			xoff = XOFF + N*DX
+			textsize = 0.04 * height
+			x0 = xoff + 0.4 * DX
+			y0 = YOFF + 0.45 * DY + DY*i
+			y1 = y0 + 0.07 * DY
+			scrollers.push new TextScroller x0, y1, width/2, 0.9 * 1.2*textsize, textsize, event[3]
 
 drawInfo = (ts) ->
 	avslutade = 0
@@ -268,13 +278,13 @@ drawInfo = (ts) ->
 		if index != -1
 			xoff = XOFF + N*DX
 			push()
-			textSize 0.03*height
+			textSize 0.04*height
 			fill "black"
 			sc()
 			rect xoff+2, YOFF+DY*i,width,DY
-			y0 = YOFF + 0.3 * DY + DY*i
-			y1 = y0 + 0.3 * DY
-			y2 = y1 + 0.3 * DY
+			y0 = YOFF + 0.45 * DY + DY*i
+			y1 = y0 + 0.35 * DY
+			#y2 = y1 + 0.3 * DY
 
 			x0 = xoff + 0.4 * DX
 			x1 = x0 + textWidth '  ' + key
@@ -290,91 +300,32 @@ drawInfo = (ts) ->
 			fill "lightblue"
 			text event[2], x3, y0
 
-			drawDeltagare event[3], x0, y1, y2
 			pop()
 
-draw = ->
+	for scroller in scrollers
+		scroller.draw()
+
+newdraw = ->
 	background "black"
-	displaywidth = 150
-	dy = 40
-	for deltagare in deltagarna
-		if _.size(deltagare) == 1 # initiering ej utförd
-			t = deltagare[0]
-			textSize 20
-			sz = Math.round textWidth t
-			if sz <= displaywidth # scroll behövs ej
-				pg = createGraphics displaywidth,20
-				pg.background "green"
-				pg.textSize 20
-				pg.fill "yellow"
-				pg.text t,0,20-2
-				deltagare.push pg # 1
-			else # scroll behövs
-				sz = Math.round textWidth t + ' | '
-				pg = createGraphics sz + displaywidth, 20
-				pg.background "green"
-				pg.textSize 20
-				pg.fill "yellow"
-				pg.text t + ' | ' + t,0,20-2
-				#sz = Math.round pg.textWidth t
-				deltagare.push pg # 1
-				deltagare.push sz # 2
-				deltagare.push 0  # 3 p
+	for scroller in scrollers
+		scroller.draw()
 
-		if deltagare.length == 2 # scroll behövs ej
-			pg = deltagare[1]
-			image pg,0,dy
-		else # scrolla
-			[txt,pg,sz,p] = deltagare
-
-			sx = p
-			sy = 0
-			sw = displaywidth
-			sh = 20
-
-			dx = 0 # p
-			#dx = p
-			dw = displaywidth
-			dh = 20
-
-			#image pg,0,60
-			image pg,dx,dy,dw,dh,sx,sy,sw,sh
-			p = (p+1) % sz
-			deltagare[3] = p
-
-		dy += 40
-
-olddraw = ->
+draw = ->
 	bg 0
 	if autonomous
 		date = new Date()
 		timestamp = minutes 100 * date.getHours() + date.getMinutes()
 	ts = timestamp % 5
 	left = timestamp - ts - 60
+	if lastTimestamp != timestamp 
+		lastTimestamp = timestamp
+		createScrollers()
 	drawTitle()
 	drawGrid ts,left
 	drawInfo ts
 	drawHeader()
 	size = 0.1*width
 	image img,5,height-size-5,size,size
-
-# mouseClicked = ->
-# 	if XOFF < mouseX < XOFF + N*DX and YOFF < mouseY < YOFF + SCENES*DY
-# 		FIRST = mouseX
-# 		console.log 'mouseClicked',FIRST
-# 	else
-# 		autonomous = true
-# 		date = new Date()
-# 		timestamp = minutes 100 * date.getHours() + date.getMinutes()
-
-# mouseReleased = (fxn) ->
-# 	SECOND = mouseX
-# 	console.log 'mouseReleased',SECOND,fxn
-# 	autonomous = false 
-# 	ts = timestamp % 5
-# 	timestamp += Math.round((SECOND-FIRST)*5/DX-ts) # - 60
-# 	timestamp = timestamp %% (24*60)
-
 
 touchStarted = (event) ->
 	event.preventDefault()
@@ -418,11 +369,10 @@ preload = ->
 	img = loadImage 'qr-code.png'
 
 setup = ->
-	deltagarna = []
-	deltagarna.push ["Pelle"]
-	deltagarna.push ["Adam, Bertil, Cesar, David"]
-	deltagarna.push ["Marianne Liljeholt, Miranda Törnqvist, Glenn Dormer, Mikael Cromsjö, Alfred Westh, Maneka Helleberg"]
-
+	displaywidth = 150
+	textsize = 20
+	scrollers = []
+	
 	createCanvas innerWidth,innerHeight
 	# frameRate 10
 	SCENES = _.size scenes
