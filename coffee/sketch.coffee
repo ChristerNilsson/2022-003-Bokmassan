@@ -8,6 +8,7 @@ DY = 0
 FIRST = 0 # första musklickets x-koordinat
 N = 24 # antal fem minuters perioder
 img = null
+deltagarna = []
 
 lastTouchEnded = 0
 released = true
@@ -17,7 +18,8 @@ prevTimestamp = 0
 
 avslutade = 0
 pågående = 0
-kommande = 0 
+kommande = 0
+p = 0
 
 minutes = (hhmm) ->
 	h = Math.floor hhmm/100
@@ -292,6 +294,57 @@ drawInfo = (ts) ->
 			pop()
 
 draw = ->
+	background "black"
+	displaywidth = 150
+	dy = 40
+	for deltagare in deltagarna
+		if _.size(deltagare) == 1 # initiering ej utförd
+			t = deltagare[0]
+			textSize 20
+			sz = Math.round textWidth t
+			if sz <= displaywidth # scroll behövs ej
+				pg = createGraphics displaywidth,20
+				pg.background "green"
+				pg.textSize 20
+				pg.fill "yellow"
+				pg.text t,0,20-2
+				deltagare.push pg # 1
+			else # scroll behövs
+				sz = Math.round textWidth t + ' | '
+				pg = createGraphics sz + displaywidth, 20
+				pg.background "green"
+				pg.textSize 20
+				pg.fill "yellow"
+				pg.text t + ' | ' + t,0,20-2
+				#sz = Math.round pg.textWidth t
+				deltagare.push pg # 1
+				deltagare.push sz # 2
+				deltagare.push 0  # 3 p
+
+		if deltagare.length == 2 # scroll behövs ej
+			pg = deltagare[1]
+			image pg,0,dy
+		else # scrolla
+			[txt,pg,sz,p] = deltagare
+
+			sx = p
+			sy = 0
+			sw = displaywidth
+			sh = 20
+
+			dx = 0 # p
+			#dx = p
+			dw = displaywidth
+			dh = 20
+
+			#image pg,0,60
+			image pg,dx,dy,dw,dh,sx,sy,sw,sh
+			p = (p+1) % sz
+			deltagare[3] = p
+
+		dy += 40
+
+olddraw = ->
 	bg 0
 	if autonomous
 		date = new Date()
@@ -303,9 +356,6 @@ draw = ->
 	drawInfo ts
 	drawHeader()
 	size = 0.1*width
-	#fill "gray"
-	#textSize 0.02*height
-	#text "Länk:",width-size,height-size-10
 	image img,5,height-size-5,size,size
 
 # mouseClicked = ->
@@ -368,8 +418,13 @@ preload = ->
 	img = loadImage 'qr-code.png'
 
 setup = ->
+	deltagarna = []
+	deltagarna.push ["Pelle"]
+	deltagarna.push ["Adam, Bertil, Cesar, David"]
+	deltagarna.push ["Marianne Liljeholt, Miranda Törnqvist, Glenn Dormer, Mikael Cromsjö, Alfred Westh, Maneka Helleberg"]
+
 	createCanvas innerWidth,innerHeight
-	frameRate 10
+	# frameRate 10
 	SCENES = _.size scenes
 	DX = Math.round 0.02 * width
 	DY = 0.93 * height/SCENES
