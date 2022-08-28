@@ -255,7 +255,7 @@ createScrollers = () ->
 
 		if index != -1
 			xoff = XOFF + N*DX
-			textsize = 0.04 * height
+			textsize = 0.35 * DY
 			x0 = xoff + 0.4 * DX
 			y0 = YOFF + 0.45 * DY + DY*i
 			y1 = y0 + 0.07 * DY
