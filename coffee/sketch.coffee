@@ -1,4 +1,4 @@
-TITLE = 'A Svenska bok- och mediemässan 2022-08-20'
+TITLE = 'B Svenska bok- och mediemässan 2022-08-20'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -255,7 +255,7 @@ createScrollers = () ->
 
 		if index != -1
 			xoff = XOFF + N*DX
-			textsize = 0.35 * DY
+			textsize = 0.04 * height
 			x0 = xoff + 0.4 * DX
 			y0 = YOFF + 0.45 * DY + DY*i
 			y1 = y0 + 0.07 * DY
