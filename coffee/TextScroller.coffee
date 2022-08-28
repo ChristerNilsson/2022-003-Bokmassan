@@ -12,7 +12,7 @@ class TextScroller
 			@pg.textSize faktor * @ts
 			@pg.fill "gray"
 			@pg.textAlign LEFT,CENTER
-			@pg.text @text,0,0.5*@dh
+			@pg.text @text,0,faktor*@dh
 		else # scroll behövs
 			@sz = Math.round textWidth @text + ' • '
 			@pg = createGraphics @sz + @dw + 100, @dh
@@ -20,7 +20,7 @@ class TextScroller
 			@pg.textSize faktor * @ts
 			@pg.fill "gray"
 			@pg.textAlign LEFT,CENTER
-			@pg.text @text + ' • ' + @text,0,0.5*@dh
+			@pg.text @text + ' • ' + @text,0,faktor*@dh
 			@p = 0
 
 	draw : () ->
