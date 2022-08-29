@@ -1,25 +1,26 @@
 class TextScroller
 	constructor : (@dx,@dy,@dw,@dh,@ts,@text) ->
 		textSize @ts
-		if window.navigator.userAgent.indexOf('Windows' != -1)
-			faktor=0.5
-		else
-			faktor=0.25
+		faktor = 0.5
+		# if window.navigator.userAgent.indexOf('Windows' != -1)
+		# 	faktor=0.5
+		# else
+		# 	faktor=0.25
 		@sz = Math.round textWidth @text
 		if @sz <= @dw # scroll behövs ej
 			@pg = createGraphics @dw,@dh
-			@pg.pixelDensity 1
+			#@pg.pixelDensity 1
 			@pg.background "green"
-			@pg.textSize faktor * @ts
+			@pg.textSize @ts
 			@pg.fill "gray"
 			@pg.textAlign LEFT,CENTER
 			@pg.text @text,0,faktor*@dh
 		else # scroll behövs
 			@sz = Math.round textWidth @text + ' • '
 			@pg = createGraphics @sz + @dw + 100, @dh
-			@pg.pixelDensity 1
+			#@pg.pixelDensity 1
 			@pg.background "green"
-			@pg.textSize faktor * @ts
+			@pg.textSize @ts
 			@pg.fill "gray"
 			@pg.textAlign LEFT,CENTER
 			@pg.text @text + ' • ' + @text,0,faktor*@dh
