@@ -8,6 +8,7 @@ class TextScroller
 		@sz = Math.round textWidth @text
 		if @sz <= @dw # scroll behövs ej
 			@pg = createGraphics @dw,@dh
+			@pg.pixelDensity 1
 			@pg.background "green"
 			@pg.textSize faktor * @ts
 			@pg.fill "gray"
@@ -16,6 +17,7 @@ class TextScroller
 		else # scroll behövs
 			@sz = Math.round textWidth @text + ' • '
 			@pg = createGraphics @sz + @dw + 100, @dh
+			@pg.pixelDensity 1
 			@pg.background "green"
 			@pg.textSize faktor * @ts
 			@pg.fill "gray"
