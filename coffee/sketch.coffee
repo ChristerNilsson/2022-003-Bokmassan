@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20'
+TITLE1 = '2022-08-20 A'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -213,7 +213,7 @@ drawHeader = ->
 	yoff = 0
 
 	fill "red"
-	text avslutade + " avslutade", XOFF, 0.2*DY
+	text avslutade + " avslutade", XOFF, 0.3*DY
 
 	textAlign CENTER
 	fill "darkgray"
@@ -223,11 +223,11 @@ drawHeader = ->
 	textStyle NORMAL
 
 	fill 'yellow'
-	text pågående + " pågående", XOFF+N/2*DX, 0.2*DY
+	text pågående + " pågående", XOFF+N/2*DX, 0.3*DY
 	
 	textAlign RIGHT
 	fill "lightgreen"
-	text kommande + " kommande", xoff, 0.2*DY
+	text kommande + " kommande", xoff, 0.3*DY
 
 	x0 = XOFF + N*DX + 0.4*DX
 	x1 = x0 + textWidth '  Scen'

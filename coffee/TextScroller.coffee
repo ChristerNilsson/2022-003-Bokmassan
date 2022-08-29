@@ -1,5 +1,6 @@
 class TextScroller
 	constructor : (@dx,@dy,@dw,@dh,@ts,@text) ->
+		push()
 		textSize @ts
 		faktor = 0.5
 		# if window.navigator.userAgent.indexOf('Windows' != -1)
@@ -24,7 +25,8 @@ class TextScroller
 			@pg.fill "gray"
 			@pg.textAlign LEFT,CENTER
 			@pg.text @text + ' • ' + @text,0,faktor*@dh
-			@p = 0
+			@p = 0 
+		pop()
 
 	draw : () ->
 		if @p == null # scroll behövs ej
