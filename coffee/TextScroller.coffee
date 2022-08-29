@@ -17,17 +17,17 @@ class TextScroller
 		pop()
 
 	makeImage : (txt) ->
-		@pg.background "black"
+		@pg.background "green"
 		@pg.textSize @ts
-		@pg.fill "lightgray"
+		@pg.fill "gray"
 		@pg.textAlign LEFT,CENTER
 		@pg.text txt,0,@dh/2
 
 	draw : () ->
 		if @p == null # scroll behövs ej
-			image @pg,@dx,@dy
+			image @pg, @dx,@dy
 		else # scrolla
-			image @pg,@dx,@dy,@dw,@dh,@p,0,@dw,@dh
+			image @pg, @dx,@dy,@dw,@dh, @p,0,@dw,@dh
 			@p = (@p+1) % @sz
 
 
