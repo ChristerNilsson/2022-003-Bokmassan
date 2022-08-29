@@ -2,12 +2,16 @@
 
 [Prova på!](https://christernilsson.github.io/2022-003-Bokmassan)
 
-* Visar information för ett antal scener, 120 minuter brett tidsfönster
-* Uppdaterar sig automatiskt mha klockan
-* Alternativt fryses bilden på en tidpunkt man väljer genom att klicka i griden
-* Klicka utanför griden för att återfå autonomt läge
-* Kan användas från mobil browser
-
-* Röd  box = avslutade event
-* Gul  box = pågående event
-* Grön box = kommande event
+* Visar information om scener och event
+	* Tidsfönstret är två timmar brett
+	* Varje ruta är fem minuter bred
+* Uppdateras varje minut
+* Svep i vänster halva för att välja tidpunkt
+* Klicka på höger halva för att välja nuläge
+* Kan även användas på mobiler och plattor
+	* Scanna QR-koden i nedre vänstra hörnet
+	* Avsett för liggande skärm, dvs landskap
+* I boxarna anges antal minuter kvar
+	* Röd  box = avslutat event
+	* Gul  box = pågående event
+	* Grön box = kommande event
