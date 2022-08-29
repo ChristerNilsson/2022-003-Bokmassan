@@ -10,6 +10,7 @@ FIRST = 0 # första musklickets x-koordinat
 N = 24 # antal fem minuters perioder
 img = null
 scrollers = []
+graphicsCount = 0
 
 lastTouchEnded = 0
 released = true
@@ -258,17 +259,28 @@ createScrollers = () ->
 	scrollers = []
 	keys = _.keys scenes
 	for i in range keys.length
+		#key = keys[i]
+		#index = findIndex scenes[key],timestamp
+		#event = scenes[key][index]
+
+		#if index != -1
+		xoff = XOFF + N*DX
+		textsize = 0.04 * height
+		x0 = xoff + 0.4 * DX
+		y0 = YOFF + 0.4 * DY + DY*i
+		y1 = y0 + 0.12 * DY
+		scrollers.push new TextScroller x0, y1, width/2, 1.2 * textsize, textsize
+
+updateScrollers = () ->
+	keys = _.keys scenes
+	for i in range keys.length
 		key = keys[i]
 		index = findIndex scenes[key],timestamp
-		event = scenes[key][index]
-
-		if index != -1
-			xoff = XOFF + N*DX
-			textsize = 0.04 * height
-			x0 = xoff + 0.4 * DX
-			y0 = YOFF + 0.4 * DY + DY*i
-			y1 = y0 + 0.12 * DY
-			scrollers.push new TextScroller x0, y1, width/2, 1.2 * textsize, textsize, event[3]
+		if index == -1
+			scrollers[i].update ''
+		else
+			event = scenes[key][index]
+			scrollers[i].update event[3]
 
 drawInfo = (ts) ->
 	avslutade = 0
@@ -324,7 +336,7 @@ draw = ->
 	left = timestamp - ts - 60
 	if lastTimestamp != timestamp 
 		lastTimestamp = timestamp
-		createScrollers()
+		updateScrollers()
 	drawTitle()
 	drawGrid ts,left
 	drawInfo ts
@@ -384,3 +396,5 @@ setup = ->
 	DY = 0.9 * height/SCENES
 	XOFF = 0.0 * DX # pixels
 	YOFF = 0.8 * DY # pixels
+	createScrollers()
+	console.log 'setup done!'
