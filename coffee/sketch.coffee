@@ -129,7 +129,7 @@ drawTitle = ->
 	textAlign RIGHT
 	textSize 0.04 * height
 	text TITLE1,width,0.25*YOFF
-	text TITLE0,width,0.7*YOFF
+	text TITLE0,width,0.75*YOFF
 	pop()
 
 rutnät = ->
@@ -329,7 +329,7 @@ draw = ->
 	drawInfo ts
 	drawHeader()
 	size = 0.1*width
-	image img,5,height-size-5,size,size
+	image img,10,height-1.1*size,size,size
 
 touchStarted = (event) ->
 	event.preventDefault()
@@ -382,5 +382,5 @@ setup = ->
 	SCENES = _.size scenes
 	DX = Math.round 0.02 * width
 	DY = 0.9 * height/SCENES
-	XOFF = 0.5 * DX # pixels
+	XOFF = 0.0 * DX # pixels
 	YOFF = 0.8 * DY # pixels
