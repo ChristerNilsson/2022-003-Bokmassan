@@ -268,7 +268,7 @@ createScrollers = () ->
 			x0 = xoff + 0.4 * DX
 			y0 = YOFF + 0.4 * DY + DY*i
 			y1 = y0 + 0.07 * DY
-			scrollers.push new TextScrollerText x0, y1, width/2, 1.3 * textsize, textsize, event[3]
+			scrollers.push new TextScroller x0, y1, width/2, 1.3 * textsize, textsize, event[3]
 
 drawInfo = (ts) ->
 	avslutade = 0
