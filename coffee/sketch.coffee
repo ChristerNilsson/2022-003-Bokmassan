@@ -1,4 +1,5 @@
-TITLE = 'K Svenska bok- och mediemässan 2022-08-20'
+TITLE0 = 'Svenska bok- och mediemässan'
+TITLE1 = '2022-08-20'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -126,8 +127,9 @@ drawTitle = ->
 	push()
 	fill 'darkgray'
 	textAlign RIGHT
-	textSize 0.016 * width
-	text TITLE,0.995*width,0.6*YOFF
+	textSize 0.04 * height
+	text TITLE1,width,0.25*YOFF
+	text TITLE0,width,0.7*YOFF
 	pop()
 
 rutnät = ->
@@ -144,20 +146,20 @@ rutnät = ->
 
 tider = (ts,left) ->
 	push()
-	textSize 0.02*height
+	textSize 0.04 * height
 	fill "darkgray"
-	text pretty(left),XOFF,0.4*DY
+	text pretty(left),XOFF,0.6*DY
 	push()
 	x = XOFF+N/2*DX+DX/5*ts
 	fill "yellow"
 	textAlign CENTER
 	if autonomous then fill "yellow"
 	else fill "darkgray"
-	text pretty(timestamp),x,0.4*DY
+	text pretty(timestamp),x,0.6*DY
 	pop()
 	textAlign RIGHT
 	fill "darkgray"
-	text pretty(left+120),XOFF+N*DX,0.4*DY
+	text pretty(left+120),XOFF+N*DX,0.6*DY
 	stroke "YELLOW"
 	line x, YOFF, XOFF+N/2*DX+DX/5*ts, YOFF+SCENES*DY
 	pop()
@@ -182,14 +184,14 @@ drawBox = (i,event,ts,j) ->
 		fill "yellow"
 		pågående++
 
-	rect x, YOFF + 0.25*DY + DY*i, duration/5*DX, 0.5*DY, 6
+	rect x, YOFF + 0.15*DY + DY*i, duration/5*DX, 0.7*DY, 6
 	d = duration + hhmm - timestamp
 	if hhmm > timestamp then d = duration
 	if d > 0 
-		textSize 0.03*height
-		textAlign CENTER
+		textSize 0.04*height
+		textAlign CENTER,CENTER
 		fill "black"
-		text d,x+duration/5*DX/2, YOFF + 0.6*DY + DY*i
+		text d,x+duration/5*DX/2, YOFF + 0.55*DY + DY*i
 	pop()
 
 findIndex = (events, timestamp) ->
@@ -200,7 +202,7 @@ findIndex = (events, timestamp) ->
 
 drawHeader = ->
 	push()
-	textSize 0.02 * height
+	textSize 0.04 * height
 	xoff = XOFF + N*DX
 	yoff = 0
 
@@ -210,8 +212,8 @@ drawHeader = ->
 	textAlign CENTER
 	fill "darkgray"
 	textStyle ITALIC
-	text "En ruta = 5 min",XOFF+N/4*DX, 0.4*DY
-	text "Svep för att byta tid",XOFF+3*N/4*DX, 0.4*DY
+	#text "En ruta = 5 min",XOFF+N/4*DX, 0.4*DY
+	#text "Svep för att byta tid",XOFF+3*N/4*DX, 0.4*DY
 	textStyle NORMAL
 
 	fill 'yellow'
@@ -220,7 +222,6 @@ drawHeader = ->
 	textAlign RIGHT
 	fill "lightgreen"
 	text kommande + " kommande", xoff, 0.2*DY
-
 
 	x0 = XOFF + N*DX + 0.4*DX
 	x1 = x0 + textWidth '  Scen'
@@ -241,7 +242,9 @@ drawHeader = ->
 	text "Event",x3, y
 
 	fill "darkgray"
-	text "Deltagare",x0, yoff + 0.4*DY
+	text "Deltagare",x0, yoff + 0.6*DY
+
+	text 
 
 	pop()
 
@@ -257,7 +260,7 @@ createScrollers = () ->
 			xoff = XOFF + N*DX
 			textsize = 0.04 * height
 			x0 = xoff + 0.4 * DX
-			y0 = YOFF + 0.45 * DY + DY*i
+			y0 = YOFF + 0.4 * DY + DY*i
 			y1 = y0 + 0.07 * DY
 			scrollers.push new TextScrollerText x0, y1, width/2, 1.3 * textsize, textsize, event[3]
 
@@ -282,7 +285,7 @@ drawInfo = (ts) ->
 			fill "black"
 			sc()
 			rect xoff+2, YOFF+DY*i,width,DY
-			y0 = YOFF + 0.45 * DY + DY*i
+			y0 = YOFF + 0.35 * DY + DY*i
 			y1 = y0 + 0.35 * DY
 			#y2 = y1 + 0.3 * DY
 
@@ -291,6 +294,7 @@ drawInfo = (ts) ->
 			x2 = x1 + textWidth '  ' + pretty event[0]
 			x3 = x2 + textWidth '  ' + event[1]
 
+			textAlign LEFT,CENTER
 			fill "red"
 			text key, x0, y0
 			fill "yellow"
@@ -377,6 +381,6 @@ setup = ->
 	# frameRate 10
 	SCENES = _.size scenes
 	DX = Math.round 0.02 * width
-	DY = 0.93 * height/SCENES
+	DY = 0.9 * height/SCENES
 	XOFF = 0.5 * DX # pixels
-	YOFF = 0.45 * DY # pixels
+	YOFF = 0.8 * DY # pixels

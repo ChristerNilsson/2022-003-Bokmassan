@@ -31,5 +31,5 @@ class TextScrollerText
 		textAlign LEFT,CENTER
 		if @p != null # scroll behövs
 			if @p==0 then @arr.push @arr.shift()
-			@p = (@p+1) % 200
+			@p = (@p+1) % 100
 		text @arr.join(', '),@dx,@dy+0.6*@dh
