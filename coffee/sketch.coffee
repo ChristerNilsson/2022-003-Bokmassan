@@ -153,9 +153,15 @@ tider = (ts,left) ->
 	x = XOFF+N/2*DX+DX/5*ts
 	fill "yellow"
 	textAlign CENTER
-	if autonomous then fill "yellow"
-	else fill "darkgray"
-	text pretty(timestamp),x,0.6*DY
+	date = new Date()
+	if autonomous
+		fill "yellow"
+		s = date.getSeconds()
+		if s<10 then s = '0' + s
+		text pretty(timestamp)+':'+s,x,0.6*DY
+	else
+		fill "darkgray"
+		text pretty(timestamp),x,0.6*DY
 	pop()
 	textAlign RIGHT
 	fill "darkgray"
