@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 A'
+TITLE1 = '2022-08-20'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -213,7 +213,7 @@ drawHeader = ->
 	yoff = 0
 
 	fill "red"
-	text avslutade + " avslutade", XOFF, 0.3*DY
+	text avslutade + " avslutade", XOFF, 0.2*DY
 
 	textAlign CENTER
 	fill "darkgray"
@@ -223,11 +223,11 @@ drawHeader = ->
 	textStyle NORMAL
 
 	fill 'yellow'
-	text pågående + " pågående", XOFF+N/2*DX, 0.3*DY
+	text pågående + " pågående", XOFF+N/2*DX, 0.2*DY
 	
 	textAlign RIGHT
 	fill "lightgreen"
-	text kommande + " kommande", xoff, 0.3*DY
+	text kommande + " kommande", xoff, 0.2*DY
 
 	x0 = XOFF + N*DX + 0.4*DX
 	x1 = x0 + textWidth '  Scen'
@@ -250,7 +250,7 @@ drawHeader = ->
 	fill "darkgray"
 	text "Deltagare",x0, yoff + 0.6*DY
 
-	text 
+	# text 
 
 	pop()
 
@@ -268,7 +268,7 @@ createScrollers = () ->
 			x0 = xoff + 0.4 * DX
 			y0 = YOFF + 0.4 * DY + DY*i
 			y1 = y0 + 0.07 * DY
-			scrollers.push new TextScroller x0, y1, width/2, 1.3 * textsize, textsize, event[3]
+			scrollers.push new TextScrollerText x0, y1, width/2, 1.3 * textsize, textsize, event[3]
 
 drawInfo = (ts) ->
 	avslutade = 0
@@ -312,11 +312,6 @@ drawInfo = (ts) ->
 
 			pop()
 
-	for scroller in scrollers
-		scroller.draw()
-
-newdraw = ->
-	background "black"
 	for scroller in scrollers
 		scroller.draw()
 
@@ -382,7 +377,6 @@ setup = ->
 	displaywidth = 150
 	textsize = 20
 	scrollers = []
-	#pixelDensity 1
 	createCanvas innerWidth,innerHeight
 	# frameRate 10
 	SCENES = _.size scenes
