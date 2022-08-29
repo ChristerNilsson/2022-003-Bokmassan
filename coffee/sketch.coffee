@@ -1,4 +1,4 @@
-TITLE = 'H Svenska bok- och mediemässan 2022-08-20'
+TITLE = 'I Svenska bok- och mediemässan 2022-08-20'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -372,7 +372,7 @@ setup = ->
 	displaywidth = 150
 	textsize = 20
 	scrollers = []
-	
+	pixelDensity 1
 	createCanvas innerWidth,innerHeight
 	# frameRate 10
 	SCENES = _.size scenes
