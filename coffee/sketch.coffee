@@ -128,8 +128,8 @@ drawTitle = ->
 	fill 'darkgray'
 	textAlign RIGHT
 	textSize 0.04 * height
-	text TITLE1,width,0.25*YOFF
-	text TITLE0,width,0.75*YOFF
+	text TITLE1,width,0.4*YOFF
+	text TITLE0,width,0.9*YOFF
 	pop()
 
 rutnät = ->
@@ -148,7 +148,7 @@ tider = (ts,left) ->
 	push()
 	textSize 0.04 * height
 	fill "darkgray"
-	text pretty(left),XOFF,0.6*DY
+	text pretty(left),XOFF,0.7*DY
 	push()
 	x = XOFF+N/2*DX+DX/5*ts
 	fill "yellow"
@@ -158,14 +158,14 @@ tider = (ts,left) ->
 		fill "yellow"
 		s = date.getSeconds()
 		if s<10 then s = '0' + s
-		text pretty(timestamp)+':'+s,x,0.6*DY
+		text pretty(timestamp)+':'+s,x,0.7*DY
 	else
 		fill "darkgray"
-		text pretty(timestamp),x,0.6*DY
+		text pretty(timestamp),x,0.7*DY
 	pop()
 	textAlign RIGHT
 	fill "darkgray"
-	text pretty(left+120),XOFF+N*DX,0.6*DY
+	text pretty(left+120),XOFF+N*DX,0.7*DY
 	stroke "YELLOW"
 	line x, YOFF, XOFF+N/2*DX+DX/5*ts, YOFF+SCENES*DY
 	pop()
@@ -213,7 +213,7 @@ drawHeader = ->
 	yoff = 0
 
 	fill "red"
-	text avslutade + " avslutade", XOFF, 0.2*DY
+	text avslutade + " avslutade", XOFF, 0.3*DY
 
 	textAlign CENTER
 	fill "darkgray"
@@ -223,11 +223,11 @@ drawHeader = ->
 	textStyle NORMAL
 
 	fill 'yellow'
-	text pågående + " pågående", XOFF+N/2*DX, 0.2*DY
+	text pågående + " pågående", XOFF+N/2*DX, 0.3*DY
 	
 	textAlign RIGHT
 	fill "lightgreen"
-	text kommande + " kommande", xoff, 0.2*DY
+	text kommande + " kommande", xoff, 0.3*DY
 
 	x0 = XOFF + N*DX + 0.4*DX
 	x1 = x0 + textWidth '  Scen'
@@ -235,7 +235,7 @@ drawHeader = ->
 	x3 = x2 + textWidth '  Längd'
 	x4 = x3 + textWidth '  Event'
 
-	y = yoff + 0.2*DY
+	y = yoff + 0.3*DY
 
 	textAlign LEFT
 	fill "red"
@@ -248,7 +248,7 @@ drawHeader = ->
 	text "Event",x3, y
 
 	fill "darkgray"
-	text "Deltagare",x0, yoff + 0.6*DY
+	text "Deltagare",x0, yoff + 0.7*DY
 
 	# text 
 
@@ -267,8 +267,8 @@ createScrollers = () ->
 			textsize = 0.04 * height
 			x0 = xoff + 0.4 * DX
 			y0 = YOFF + 0.4 * DY + DY*i
-			y1 = y0 + 0.07 * DY
-			scrollers.push new TextScrollerText x0, y1, width/2, 1.3 * textsize, textsize, event[3]
+			y1 = y0 + 0.12 * DY
+			scrollers.push new TextScroller x0, y1, width/2, 1.2 * textsize, textsize, event[3]
 
 drawInfo = (ts) ->
 	avslutade = 0
