@@ -1,6 +1,6 @@
 class TextScroller
 	constructor : (@dx,@dy,@dw,@dh,@ts) ->
-		@pg = createGraphics 2000, @dh
+		@pg = createGraphics 1000, @dh  # 2000
 
 	update : (txt) ->
 		@text = txt
@@ -26,15 +26,19 @@ class TextScroller
 		@pg.text txt,0,@dh/2
 
 	draw : () ->
+		# push()
+		# textSize @ts
+		# rect @dx,@dy,@dw,@dh
+		# textAlign LEFT,CENTER
+		# text "#{@visible} #{@scroll} #{@text}",@dx,@dy+@dh/2
+		# pop()
+
 		push()
-		textSize @ts
-		rect @dx,@dy,@dw,@dh
-		textAlign LEFT,CENTER
-		text "#{@visible} #{@scroll} #{@text}",@dx,@dy+@dh/2
+		if @visible
+			image @pg, 0,@dy-@dh
+			if @scroll
+				image @pg, @dx,@dy,@dw,@dh, @p,0,@dw,@dh
+				@p = (@p+1) % @sz
+			else
+				image @pg, @dx,@dy
 		pop()
-		# 	image @pg, 0,@dy-@dh
-		# 	if @scroll
-		# 		image @pg, @dx,@dy,@dw,@dh, @p,0,@dw,@dh
-		# 		@p = (@p+1) % @sz
-		# 	else
-		# 		image @pg, @dx,@dy
