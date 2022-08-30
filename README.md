@@ -8,10 +8,14 @@
 * Uppdateras varje minut
 * Svep i vänster halva för att välja tidpunkt
 * Klicka på höger halva för att välja nuläge
-* Kan användas på Windows och Android. (Deltagare syns ej på iOS)
 	* Scanna QR-koden i nedre vänstra hörnet
 	* Avsett för liggande skärm, dvs landskap
 * I boxarna anges antal minuter kvar
 	* Röd  box = avslutat event
 	* Gul  box = pågående event
 	* Grön box = kommande event
+* Kan användas på dessa operativsystem
+	* Windows
+	* iOS
+	* Android
+* Testat enbart på Chrome
