@@ -1,11 +1,11 @@
 class TextScroller
 	constructor : (@dx,@dy,@dw,@dh,@ts) ->
 		@pg = createGraphics 10000, @dh # w
-		@dx = Math.round @dx
-		@dy = Math.round @dy
-		@dw = Math.round @dw
-		@dh = Math.round @dh
-		@ts = Math.round @ts
+		# @dx = Math.round @dx
+		# @dy = Math.round @dy
+		# @dw = Math.round @dw
+		# @dh = Math.round @dh
+		# @ts = Math.round @ts
 
 	update : (txt) ->
 		@text = txt
