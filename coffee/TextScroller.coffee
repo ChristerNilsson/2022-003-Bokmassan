@@ -3,6 +3,7 @@ class TextScroller
 		@pg = createGraphics 10000, @dh # w
 		@dx = Math.round @dx
 		@dy = Math.round @dy
+		@dw = Math.round @dw
 		@dh = Math.round @dh
 		@ts = Math.round @ts
 
@@ -26,7 +27,7 @@ class TextScroller
 		@pg.textSize @ts
 		@pg.fill "gray"
 		@pg.textAlign LEFT,CENTER
-		@pg.text txt,0,@dh/2
+		@pg.text txt,0,Math.round @dh/2
 
 	draw : () ->
 		if @visible
