@@ -1,11 +1,12 @@
 class TextScroller
 	constructor : (@dx,@dy,@dw,@dh,@ts) ->
+		# Observera: iOS + image kräver heltal för parametrarna
+		@dx = Math.round @dx
+		@dy = Math.round @dy
+		@dw = Math.round @dw
+		@dh = Math.round @dh
+		@ts = Math.round @ts
 		@pg = createGraphics 10000, @dh # w
-		# @dx = Math.round @dx
-		# @dy = Math.round @dy
-		# @dw = Math.round @dw
-		# @dh = Math.round @dh
-		# @ts = Math.round @ts
 
 	update : (txt) ->
 		@text = txt
