@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 H'
+TITLE1 = '2022-08-20 I'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -386,6 +386,7 @@ preload = ->
 	img = loadImage 'qr-code.png'
 
 setup = ->
+	pixelDensity 1
 	displaywidth = 150
 	textsize = 20
 	scrollers = []
