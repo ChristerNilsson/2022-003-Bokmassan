@@ -9,13 +9,13 @@ class TextScroller
 		textSize @ts
 		@sz = Math.round textWidth @text
 		@scroll = @sz > @dw
-		if not @scroll
-			@makeImage @text
-			@p = null
-		else 
+		if @scroll
 			@sz = Math.round textWidth @text + ' • '
 			@makeImage @text + ' • ' + @text
 			@p = 0
+		else
+			@makeImage @text
+			@p = null
 		pop()
 
 	makeImage : (txt) ->
@@ -26,10 +26,16 @@ class TextScroller
 		@pg.text txt,0,@dh/2
 
 	draw : () ->
-		if not @visible then return
-		image @pg, 0,@dy-@dh
-		if not @scroll
-			image @pg, @dx,@dy
-		else 
-			image @pg, @dx,@dy,@dw,@dh, @p,0,@dw,@dh
-			@p = (@p+1) % @sz
+		push()
+		textSize @ts
+		rect @dx,@dy,@dw,@dh
+		textAlign LEFT,CENTER
+		text "draw",@dx,@dy+@dh/2
+		pop()
+		# if @visible
+		# 	image @pg, 0,@dy-@dh
+		# 	if @scroll
+		# 		image @pg, @dx,@dy,@dw,@dh, @p,0,@dw,@dh
+		# 		@p = (@p+1) % @sz
+		# 	else
+		# 		image @pg, @dx,@dy

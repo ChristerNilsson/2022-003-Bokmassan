@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 D'
+TITLE1 = '2022-08-20 E'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -277,7 +277,7 @@ updateScrollers = () ->
 		key = keys[i]
 		index = findIndex scenes[key],timestamp
 		if index == -1
-			scrollers[i].update ''
+			scrollers[i].update 'Empty'
 		else
 			event = scenes[key][index]
 			scrollers[i].update event[3]
