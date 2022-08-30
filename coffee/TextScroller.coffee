@@ -27,11 +27,14 @@ class TextScroller
 
 	draw : () ->
 		if @visible
+			fill "white"
 			if @scroll
-				image @pg,@dx,@dy,@dw,@dh,@p,0,@dw,@dh
+				text @text,@dx,@dy+@dh/2
+				#image @pg,@dx,@dy,@dw,@dh,@p,0,@dw,@dh
 				@p = (@p+1) % @sz
 			else
-				image @pg,@dx,@dy
+				#image @pg,@dx,@dy
+				text @text,@dx,@dy+@dh/2
 
 
 

@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 N'
+TITLE1 = '2022-08-20 O'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -175,7 +175,7 @@ drawGrid = (ts,left) ->
 	rutnät()
 	tider ts,left
 
-drawBox = (i,event,ts,j) ->
+drawBox = (i,event,ts) ->
 	hhmm = event[0]
 	duration = event[1]
 	push()
@@ -259,11 +259,6 @@ createScrollers = () ->
 	scrollers = []
 	keys = _.keys scenes
 	for i in range keys.length
-		#key = keys[i]
-		#index = findIndex scenes[key],timestamp
-		#event = scenes[key][index]
-
-		#if index != -1
 		xoff = XOFF + N*DX
 		textsize = 0.04 * height
 		x0 = xoff + 0.4 * DX
