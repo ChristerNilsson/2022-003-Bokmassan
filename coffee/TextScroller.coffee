@@ -27,6 +27,7 @@ class TextScroller
 
 	draw : () ->
 		if not @visible then return
+		image @pg, 0,@dy-@dh
 		if not @scroll
 			image @pg, @dx,@dy
 		else 
