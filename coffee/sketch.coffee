@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 P'
+TITLE1 = '2022-08-20'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -272,7 +272,7 @@ updateScrollers = () ->
 		key = keys[i]
 		index = findIndex scenes[key],timestamp
 		if index == -1
-			scrollers[i].update 'Empty'
+			scrollers[i].update ''
 		else
 			event = scenes[key][index]
 			scrollers[i].update event[3]
@@ -336,6 +336,7 @@ draw = ->
 	drawGrid ts,left
 	drawInfo ts
 	drawHeader()
+
 	size = 0.1*width
 	image img,10,height-1.1*size,size,size
 
@@ -381,12 +382,10 @@ preload = ->
 	img = loadImage 'qr-code.png'
 
 setup = ->
-	#pixelDensity 2
 	displaywidth = 150
 	textsize = 20
 	scrollers = []
 	createCanvas innerWidth,innerHeight
-	# frameRate 10
 	SCENES = _.size scenes
 	DX = Math.round 0.02 * width
 	DY = 0.9 * height/SCENES

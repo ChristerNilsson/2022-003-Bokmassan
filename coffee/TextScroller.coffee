@@ -1,6 +1,10 @@
 class TextScroller
 	constructor : (@dx,@dy,@dw,@dh,@ts) ->
 		@pg = createGraphics 10000, @dh # w
+		@dx = Math.round @dx
+		@dy = Math.round @dy
+		@dh = Math.round @dh
+		@ts = Math.round @ts
 
 	update : (txt) ->
 		@text = txt
@@ -11,77 +15,23 @@ class TextScroller
 		@scroll = @sz > @dw
 		if @scroll
 			@sz = Math.round textWidth @text + ' • '
-			@makeImage @text + ' • ' + @text # @sz+@dw+100
+			@makeImage @text + ' • ' + @text
 			@p = 0 
 		else
 			@makeImage @text
 		pop() 
 
 	makeImage : (txt) ->
-		#if not @draw then return
-		@pg.background "green"
-		@pg.textSize 20 # @ts
-		@pg.fill "white"
+		@pg.background "black"
+		@pg.textSize @ts
+		@pg.fill "gray"
 		@pg.textAlign LEFT,CENTER
-		txt = 'pelle'
 		@pg.text txt,0,@dh/2
 
 	draw : () ->
 		if @visible
-			#fill "white"
 			if @scroll
-				#text @text,@dx,@dy+@dh/2
 				image @pg,@dx,@dy,@dw,@dh,@p,0,@dw,@dh
 				@p = (@p+1) % @sz
 			else
 				image @pg,@dx,@dy
-				#text @text,@dx,@dy+@dh/2
-
-
-
-
-
-# class TextScroller
-# 	constructor : (@dx,@dy,@dw,@dh,@ts) ->
-# 		@pg = createGraphics 10000, @dh  # 2000
-
-# 	update : (txt) ->
-# 		@text = txt
-# 		@visible = @text != ''
-# 		push()
-# 		textSize @ts
-# 		@sz = Math.round textWidth @text
-# 		@scroll = @sz > @dw
-# 		if @scroll
-# 			@sz = Math.round textWidth @text + ' • '
-# 			@makeImage @text + ' • ' + @text
-# 			@p = 0
-# 		else
-# 			@makeImage @text
-# 			@p = null
-# 		pop()
-
-# 	makeImage : (txt) ->
-# 		@pg.background "green"
-# 		@pg.textSize @ts
-# 		@pg.fill "white"
-# 		@pg.textAlign LEFT,CENTER
-# 		@pg.text txt,0,@dh/2
-
-# 	draw : () ->
-# 		# push()
-# 		# textSize @ts
-# 		# rect @dx,@dy,@dw,@dh
-# 		# textAlign LEFT,CENTER
-# 		# text "#{@visible} #{@scroll} #{@text}",@dx,@dy+@dh/2
-# 		# pop()
-
-# 		push()
-# 		if @visible
-# 			image @pg, 0,@dy-@dh
-# 			if @scroll
-# 				image @pg, @dx,@dy,@dw,@dh, @p,0,@dw,@dh
-# 				@p = (@p+1) % @sz
-# 			else
-# 				image @pg, @dx,@dy
-# 		pop()

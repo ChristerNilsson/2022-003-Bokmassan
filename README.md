@@ -8,7 +8,7 @@
 * Uppdateras varje minut
 * Svep i vänster halva för att välja tidpunkt
 * Klicka på höger halva för att välja nuläge
-* Kan även användas på mobiler och plattor
+* Kan användas på Windows och Android. (Deltagare syns ej på iOS)
 	* Scanna QR-koden i nedre vänstra hörnet
 	* Avsett för liggande skärm, dvs landskap
 * I boxarna anges antal minuter kvar
