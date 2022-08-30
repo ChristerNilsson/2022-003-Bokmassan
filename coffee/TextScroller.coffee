@@ -30,9 +30,8 @@ class TextScroller
 		textSize @ts
 		rect @dx,@dy,@dw,@dh
 		textAlign LEFT,CENTER
-		text "draw",@dx,@dy+@dh/2
+		text "#{@visible} #{@scroll} #{@text}",@dx,@dy+@dh/2
 		pop()
-		# if @visible
 		# 	image @pg, 0,@dy-@dh
 		# 	if @scroll
 		# 		image @pg, @dx,@dy,@dw,@dh, @p,0,@dw,@dh
