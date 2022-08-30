@@ -4,13 +4,15 @@ class TextScroller
 
 	update : (txt) ->
 		@text = txt
+		@visible = @text != ''
 		push()
 		textSize @ts
 		@sz = Math.round textWidth @text
-		if @sz <= @dw # scroll behövs ej
+		@scroll = @sz > @dw
+		if not @scroll
 			@makeImage @text
 			@p = null
-		else # scrolla
+		else 
 			@sz = Math.round textWidth @text + ' • '
 			@makeImage @text + ' • ' + @text
 			@p = 0
@@ -24,8 +26,9 @@ class TextScroller
 		@pg.text txt,0,@dh/2
 
 	draw : () ->
-		if @p == null # scroll behövs ej
+		if not @visible then return
+		if not @scroll
 			image @pg, @dx,@dy
-		else # scrolla
+		else 
 			image @pg, @dx,@dy,@dw,@dh, @p,0,@dw,@dh
 			@p = (@p+1) % @sz
