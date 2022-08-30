@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 I'
+TITLE1 = '2022-08-20 J'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels

@@ -1,6 +1,6 @@
 class TextScroller
 	constructor : (@dx,@dy,@dw,@dh,@ts) ->
-		@pg = createGraphics 1000, @dh  # 2000
+		@pg = createGraphics 10000, @dh  # 2000
 
 	update : (txt) ->
 		@text = txt
