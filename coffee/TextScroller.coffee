@@ -20,21 +20,22 @@ class TextScroller
 	makeImage : (txt) ->
 		#if not @draw then return
 		@pg.background "green"
-		@pg.textSize @ts
-		@pg.fill "black"
+		@pg.textSize 20 # @ts
+		@pg.fill "white"
 		@pg.textAlign LEFT,CENTER
+		txt = 'pelle'
 		@pg.text txt,0,@dh/2
 
 	draw : () ->
 		if @visible
-			fill "white"
+			#fill "white"
 			if @scroll
-				text @text,@dx,@dy+@dh/2
-				#image @pg,@dx,@dy,@dw,@dh,@p,0,@dw,@dh
+				#text @text,@dx,@dy+@dh/2
+				image @pg,@dx,@dy,@dw,@dh,@p,0,@dw,@dh
 				@p = (@p+1) % @sz
 			else
-				#image @pg,@dx,@dy
-				text @text,@dx,@dy+@dh/2
+				image @pg,@dx,@dy
+				#text @text,@dx,@dy+@dh/2
 
 
 
