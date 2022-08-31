@@ -38,7 +38,7 @@ pretty = (m) -> # pretty(67) = "01:07"
 	if min < 10 then min = '0' + min
 	h + ':' + min
 
-autonomous = true 
+autonomous = false 
 timestamp = minutes 1512
 
 event = (scen,lst) ->

@@ -8,14 +8,20 @@ class TextDisplay
 	update : (text) ->
 		@text = text
 		@names = @text.split ', '
+		if @text.length == 0 then @groups = []
+		if @names.length == 1 then @groups = [[0]]
 		textSize @ts
 		twSEP = textWidth SEPARATOR
 		widths = @names.map (name,index) -> [Math.round(textWidth(name)),index]
 		widths.sort()
 		widths.reverse()
-		console.log "widths #{widths}, #{@dw}"
+		summa = 0
+		for [w,index] in widths
+			summa += w
+		if summa == 0 then return []
+		#if widths.length == 1 then return [[0]]
 		@groups = @gruppera widths,@dw
-		console.log "groups #{@groups}"
+		@groups = @groups.map (group) -> group.sort()
 
 	draw : () ->
 		textAlign LEFT,CENTER
@@ -32,29 +38,24 @@ class TextDisplay
 			text name, w,@dy+@dh/2
 			w += textWidth name 
 
-	moveZeroFirst = (groups) ->
-		groups.map (group) -> 
-			group.sort()
-			group
-
 	gruppera : (widths,dw) ->
-		groups = []
-		for i in range widths.length 
-			[w,index] = widths[i]
-			if w == 999999 then continue 
-			cw = w
-			temp = [index]
-			for j in range i+1,widths.length
-				[wj,indexj] = widths[j]
-				if wj == 999999 then continue
-				console.log cw + wj + temp.length * twSEP, dw 
-				if cw + wj + temp.length * twSEP <= dw 
-					cw += wj
-					temp.push indexj
-					widths[j] = [999999,indexj]
-			if temp.length > 0 then groups.push temp
-		groups = moveZeroFirst groups
-		groups
+		# prova att få in alla i EN grupp.
+		# Går inte det, öka antal grupper
+		n = 1
+		while true
+			groups = []
+			for i in range n 
+				groups.push [0,[]] # total bredd, indexes
+			for i in range widths.length 
+				[w,index] = widths[i]
+				groups[0][0] += w # bredderna
+				groups[0][1].push index # indexen
+				groups.sort() # sortera på bredd
+			last = groups[groups.length-1] # bredaste gruppen
+			if last[0] + (last[1].length-1) * twSEP <= dw
+				return groups.map (group) -> group[1] # skippa bredderna
+			n++
+
 
 # class TextScroller
 # 	constructor : (@dx,@dy,@dw,@dh,@ts) ->
