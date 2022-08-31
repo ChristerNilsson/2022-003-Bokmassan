@@ -264,7 +264,7 @@ createScrollers = () ->
 		x0 = xoff + 0.4 * DX
 		y0 = YOFF + 0.4 * DY + DY*i
 		y1 = y0 + 0.12 * DY
-		scrollers.push new TextScroller x0, y1, width/2, 1.2 * textsize, textsize
+		scrollers.push new TextDisplay x0, y1, width/2, 1.2 * textsize, textsize
 
 updateScrollers = () ->
 	keys = _.keys scenes
@@ -336,7 +336,7 @@ draw = ->
 	drawGrid ts,left
 	drawInfo ts
 	drawHeader()
-
+ 
 	size = 0.1*width
 	image img,10,height-1.1*size,size,size
 
