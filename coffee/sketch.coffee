@@ -128,7 +128,7 @@ drawTitle = ->
 	push()
 	fill 'darkgray'
 	textAlign RIGHT
-	textSize 0.04 * height
+	textSize 0.038 * height
 	text TITLE1,width,0.4*YOFF
 	text TITLE0,width,0.9*YOFF
 	pop()
@@ -147,7 +147,7 @@ rutnät = ->
 
 tider = (ts,left) ->
 	push()
-	textSize 0.04 * height
+	textSize 0.038 * height
 	fill "darkgray"
 	text pretty(left),XOFF,0.7*DY
 	push()
@@ -191,11 +191,11 @@ drawBox = (i,event,ts) ->
 		fill "yellow"
 		pågående++
 
-	rect x, YOFF + 0.15*DY + DY*i, duration/5*DX, 0.7*DY, 6
+	rect x, YOFF + 0.03*DY + DY*i, duration/5*DX, 0.94*DY, 6
 	d = duration + hhmm - timestamp
 	if hhmm > timestamp then d = duration
 	if d > 0 
-		textSize 0.04*height
+		textSize 0.038*height
 		textAlign CENTER,CENTER
 		fill "black"
 		text d,x+duration/5*DX/2, YOFF + 0.55*DY + DY*i
@@ -209,7 +209,7 @@ findIndex = (events, timestamp) ->
 
 drawHeader = ->
 	push()
-	textSize 0.04 * height
+	textSize 0.038 * height
 	xoff = XOFF + N*DX
 	yoff = 0
 
@@ -260,11 +260,11 @@ createScrollers = () ->
 	keys = _.keys scenes
 	for i in range keys.length
 		xoff = XOFF + N*DX
-		textsize = 0.04 * height
+		textsize = 0.038 * height
 		x0 = xoff + 0.4 * DX
 		y0 = YOFF + 0.4 * DY + DY*i
-		y1 = y0 + 0.12 * DY
-		scrollers.push new TextDisplay x0, y1, width/2, 1.2 * textsize, textsize
+		y1 = y0 - 0.1 * DY # 0.12
+		scrollers.push new TextDisplay x0, y1, width/2, 1.0 * textsize, textsize
 
 updateScrollers = () ->
 	keys = _.keys scenes
@@ -294,11 +294,11 @@ drawInfo = (ts) ->
 		if index != -1
 			xoff = XOFF + N*DX
 			push()
-			textSize 0.04*height
+			textSize 0.038*height
 			fill "black"
 			sc()
 			rect xoff+2, YOFF+DY*i,width,DY
-			y0 = YOFF + 0.35 * DY + DY*i
+			y0 = YOFF + 0.15 * DY + DY*i # 0.35
 			y1 = y0 + 0.35 * DY
 			#y2 = y1 + 0.3 * DY
 

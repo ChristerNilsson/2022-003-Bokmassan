@@ -47,12 +47,16 @@ class TextDisplay
 		n = @groups.length
 		if n==1
 			i = 0
-			image @pg, @dx,@dy,@dw,@dh, 0,i*@dh+@p,@dw,@dh
+			image @pg, @dx,@dy,@dw,@dh, 0,0, @dw,@dh
 			return
-		date = new Date()
-		#i = date.getSeconds() % (@groups.length+1)
-		image @pg, @dx,@dy,@dw,@dh, 0,@p,@dw,@dh
-		@p = (@p+0.5) % (@pg.height-@dh)
+		else if n==2
+			image @pg, @dx,@dy,@dw,2*@dh, 0,@dh,@dw,2*@dh
+			return
+		else
+			date = new Date()
+			#i = date.getSeconds() % (@groups.length+1)
+			image @pg, @dx,@dy,@dw,@dh, 0,@p,@dw,@dh
+			@p = (@p+0.5) % (@pg.height-@dh)
 
 	gruppera : (widths,dw) ->
 		# prova att få in alla i EN grupp.
