@@ -23,20 +23,36 @@ class TextDisplay
 		@groups = @gruppera widths,@dw
 		@groups = @groups.map (group) -> group.sort()
 
+		# skapa image med grupperna A, ABA, ABCA...
+		n = @groups.length
+		if n > 1 then n++ 
+		@pg = createGraphics @dw, @dh * n
+		@pg.textSize @ts
+		@pg.background "black"
+		@p = 0
+		for i in range n
+			group = @groups[i % @groups.length]
+			wx = 0
+			wy = (i + 0.8) * @dh
+			for j in range group.length 
+				index = group[j]
+				name = @names[index]
+				if j < group.length-1 then name += SEPARATOR
+				if index == 0 then @pg.fill 'white' else @pg.fill 'gray'
+				@pg.text name, wx,wy
+				wx += @pg.textWidth name
+
 	draw : () ->
-		textAlign LEFT,CENTER
-		textSize @ts
-		date = new Date()
 		if @groups.length == 0 then return
-		group = @groups[date.getSeconds() % @groups.length]
-		w = @dx
-		for i in range group.length 
-			index = group[i]
-			name = @names[index]
-			if i<group.length-1 then name += SEPARATOR
-			if index == 0 then fill 'white' else fill 'gray'
-			text name, w,@dy+@dh/2
-			w += textWidth name 
+		n = @groups.length
+		if n==1
+			i = 0
+			image @pg, @dx,@dy,@dw,@dh, 0,i*@dh+@p,@dw,@dh
+			return
+		date = new Date()
+		#i = date.getSeconds() % (@groups.length+1)
+		image @pg, @dx,@dy,@dw,@dh, 0,@p,@dw,@dh
+		@p = (@p+0.5) % (@pg.height-@dh)
 
 	gruppera : (widths,dw) ->
 		# prova att få in alla i EN grupp.

@@ -94,7 +94,7 @@ event 'S5',[1555,40,"Personporträtt 1","Carl Lundström"]
 event 'S5',[1645,15,"Inblick med Nick","Nick Alinia, Rasmus Paludan"]
 
 event 'S6',[1235,35,"Ek4. Elpriserna","Magnus Stenlund, Jan Blomgren"]
-event 'S6',[1320,30,"Ek3. Räntorna","Peter Albelin"]
+event 'S6',[1320,30,"Ek3. Räntorna","Peter Abelin"]
 event 'S6',[1400,30,"Ek2. Investeringar","Henrik Sundin"]
 event 'S6',[1455,30,"Ek5. Matpriserna","Olle Felten"]
 event 'S6',[1535,30,"Ek1. Inflationen","Jan Tullberg"]
