@@ -4,6 +4,8 @@ twSEP = 0
 class TextDisplay
 	constructor : (@dx,@dy,@dw,@dh,@ts) ->
 		@dw = Math.round @dw
+		@dh = Math.round @dh
+		@ts = Math.round @ts
 
 	update : (text) ->
 		@text = text
@@ -55,7 +57,7 @@ class TextDisplay
 		else
 			date = new Date()
 			#i = date.getSeconds() % (@groups.length+1)
-			image @pg, @dx,@dy,@dw,@dh, 0,@p,@dw,@dh
+			image @pg, @dx,@dy,@dw,@dh, 0,Math.round(@p),@dw,@dh
 			@p = (@p+0.5) % (@pg.height-@dh)
 
 	gruppera : (widths,dw) ->
