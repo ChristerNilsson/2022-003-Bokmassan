@@ -9,8 +9,11 @@ class TextDisplay
 
 	update : (text) ->
 		@text = text
-		@names = @text.split ', '
-		if @text.length == 0 then @groups = []
+		if text.length==0 
+			@names = []
+		else
+			@names = @text.split ', '
+		if @names.length == 0 then @groups = []
 		if @names.length == 1 then @groups = [[0]]
 		textSize @ts
 		twSEP = textWidth SEPARATOR
@@ -21,9 +24,9 @@ class TextDisplay
 		for [w,index] in widths
 			summa += w
 		if summa == 0 then return []
-		#if widths.length == 1 then return [[0]]
 		@groups = @gruppera widths,@dw
 		@groups = @groups.map (group) -> group.sort()
+		@groups.sort()
 
 		# skapa image med grupperna A, ABA, ABCA...
 		n = @groups.length
@@ -45,18 +48,11 @@ class TextDisplay
 				wx += @pg.textWidth name
 
 	draw : () ->
-		if @groups.length == 0 then return
 		n = @groups.length
-		if n==1
-			i = 0
-			image @pg, @dx,@dy,@dw,@dh, 0,0, @dw,@dh
-			return
-		else if n==2
-			image @pg, @dx,@dy,@dw,2*@dh, 0,@dh,@dw,2*@dh
-			return
+		if n == 0 then return
+		if n <= 2
+			image @pg, @dx,@dy,@dw,n*@dh, 0,0,@dw,n*@dh
 		else
-			date = new Date()
-			#i = date.getSeconds() % (@groups.length+1)
 			image @pg, @dx,@dy,@dw,@dh, 0,Math.round(@p),@dw,@dh
 			@p = (@p+0.5) % (@pg.height-@dh)
 
@@ -77,44 +73,3 @@ class TextDisplay
 			if last[0] + (last[1].length-1) * twSEP <= dw
 				return groups.map (group) -> group[1] # skippa bredderna
 			n++
-
-
-# class TextScroller
-# 	constructor : (@dx,@dy,@dw,@dh,@ts) ->
-# 		# Observera: iOS + image kräver heltal för parametrarna
-# 		@dx = Math.round @dx
-# 		@dy = Math.round @dy
-# 		@dw = Math.round @dw
-# 		@dh = Math.round @dh
-# 		@ts = Math.round @ts
-# 		@pg = createGraphics 10000, @dh # w
-
-# 	update : (txt) ->
-# 		@text = txt
-# 		push()
-# 		textSize @ts
-# 		@visible = @text != ''
-# 		@sz = Math.round textWidth @text
-# 		@scroll = @sz > @dw
-# 		if @scroll
-# 			@sz = Math.round textWidth @text + ' • '
-# 			@makeImage @text + ' • ' + @text
-# 			@p = 0 
-# 		else
-# 			@makeImage @text
-# 		pop() 
-
-# 	makeImage : (txt) ->
-# 		@pg.background "black"
-# 		@pg.textSize @ts
-# 		@pg.fill "gray"
-# 		@pg.textAlign LEFT,CENTER
-# 		@pg.text txt,0,Math.round @dh/2
-
-# 	draw : () ->
-# 		if @visible
-# 			if @scroll
-# 				image @pg,@dx,@dy,@dw,@dh,@p,0,@dw,@dh
-# 				@p = (@p+1) % @sz
-# 			else
-# 				image @pg,@dx,@dy

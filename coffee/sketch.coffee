@@ -38,7 +38,7 @@ pretty = (m) -> # pretty(67) = "01:07"
 	if min < 10 then min = '0' + min
 	h + ':' + min
 
-autonomous = false 
+autonomous = true 
 timestamp = minutes 1512
 
 event = (scen,lst) ->
@@ -276,6 +276,7 @@ updateScrollers = () ->
 		else
 			event = scenes[key][index]
 			scrollers[i].update event[3]
+			console.log scrollers[i]
 
 drawInfo = (ts) ->
 	avslutade = 0
