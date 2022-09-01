@@ -28,9 +28,9 @@ class TextDisplay
 		@groups = @groups.map (group) -> group.sort()
 		@groups.sort()
 
-		# skapa image med grupperna A, ABA, ABCA...
+		# skapa image med grupperna A, ABA, ABCAB, ABCDAB
 		n = @groups.length
-		if n > 1 then n++ 
+		if n < 2 then n++ else n+=2
 		@pg = createGraphics @dw, @dh * n
 		@pg.textSize @ts
 		@pg.background "black"
@@ -53,8 +53,8 @@ class TextDisplay
 		if n <= 2
 			image @pg, @dx,@dy,@dw,n*@dh, 0,0,@dw,n*@dh
 		else
-			image @pg, @dx,@dy,@dw,@dh, 0,Math.round(@p),@dw,@dh
-			@p = (@p+0.5) % (@pg.height-@dh)
+			image @pg, @dx,@dy,@dw,2*@dh, 0,Math.round(@p),@dw,2*@dh
+			@p = (@p+0.25) % (@pg.height-2*@dh)
 
 	gruppera : (widths,dw) ->
 		# prova att få in alla i EN grupp.
