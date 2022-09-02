@@ -15,11 +15,11 @@ class TextDisplay
 		if @names.length == 1 then @groups = [[0]]
 		textSize @ts
 		twSEP = textWidth SEPARATOR
-		widths = @names.map (name,index) -> [Math.round(textWidth(name)),index]
-		widths.sort (a,b) -> parseInt(a[0]) - parseInt(b[0])
-		widths.reverse()
+		widths = @names.map (name) -> Math.round(textWidth(name))
+		#widths.sort (a,b) -> parseInt(a[0]) - parseInt(b[0])
+		#widths.reverse()
 		summa = 0
-		for [w,index] in widths
+		for w in widths
 			summa += w
 		if summa == 0 then return []
 		@groups = @gruppera widths,@dw
@@ -54,28 +54,37 @@ class TextDisplay
 			@p = (@p+0.25) % (@pg.height-2*@dh)
 
 	gruppera : (widths,dw) ->
-		# prova att få in alla i först EN, därefter TVÅ grupper.
+		# prova att få in alla i först EN, därefter TVÅ grupper
 		# Går inte det, öka antal grupper
 		n = if widths.length == 1 then 1 else 2
-		widths.sort (a,b) -> parseInt(a[0]) - parseInt(b[0]) # annars sorteras talen som strängar
-		widths.reverse() # små bredder först
-		#console.log @names
-		#console.log "widths #{widths}"
 		while true
-			groups = []
-			for i in range n 
-				groups.push [0,[]] # total bredd, indexes
-			#console.log "groups #{groups}"
-			for i in range widths.length 
-				[w,index] = widths[i]
-				groups[0][0] += w # bredderna
-				groups[0][1].push index # indexen
-				groups.sort (a,b) -> parseInt(a[0]) - parseInt(b[0])  # sortera på bredd
-				#console.log "groups #{groups}"
-			last = groups[groups.length-1] # bredaste gruppen
-			if last[0] + (last[1].length-1) * twSEP <= dw
-				groups = groups.map (group) -> group[1] # skippa bredderna
-				#for group in groups
-					#console.log "group",group
-				return groups
+			[bestGroups,bestSums] = @grupperaRandom widths,n
+			lastSum = _.last bestSums # bredaste gruppen
+			lastGroup = _.last bestGroups
+			if lastSum + (lastGroup.length-1) * twSEP <= dw
+				return bestGroups
 			n++
+
+	grupperaRandom : (widths,n,m=1000) ->
+		# widths = bredderna
+		# n = antal grupper
+		# m = antal försök
+		best = 999999
+		for k in range m
+			groups = range(n).map -> []
+			sums = range(n).map -> 0
+			for i in range widths.length
+				j = Math.floor(Math.random() * n)
+				groups[j].push i
+				sums[j] += widths[i]
+			sums.sort (a,b) -> parseInt(a) - parseInt(b)
+			diff = sums[n-1] - sums[0]
+			if diff < best
+				best = diff
+				bestGroups = groups
+				bestSums = sums
+		# console.log @names
+		# console.log widths
+		# console.log bestGroups
+		# console.log bestSums
+		return [bestGroups,bestSums]

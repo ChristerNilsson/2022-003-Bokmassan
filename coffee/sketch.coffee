@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 E'
+TITLE1 = '2022-08-20 F'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -39,8 +39,8 @@ pretty = (m) -> # pretty(67) = "01:07"
 	if min < 10 then min = '0' + min
 	h + ':' + min
 
-autonomous = false # true 
-timestamp = minutes 1420
+autonomous = true
+timestamp = minutes 1150
 
 event = (scen,lst) ->
 	lst[0] = minutes lst[0]
@@ -324,6 +324,7 @@ drawInfo = (ts) ->
 		scroller.draw()
 
 draw = ->
+	#return
 	bg 0
 	if autonomous
 		date = new Date()
@@ -400,3 +401,44 @@ setup = ->
 	XOFF = 0.0 * DX # pixels
 	YOFF = 0.8 * DY # pixels
 	createScrollers()
+
+# grupperaN = (widths,n) ->
+# 	console.log 'grupperaN'
+# 	# prova att få in alla i n grupper.
+# 	w = []
+# 	for i in range widths.length
+# 		w.push [widths[i],i]
+# 	widths = w
+# 	widths.sort (a,b) -> parseInt(a[0]) - parseInt(b[0]) # annars sorteras talen som strängar
+# 	widths.reverse() # små bredder först
+# 	#console.log "widths #{widths}"
+# 	groups = []
+# 	for i in range n 
+# 		groups.push [0,[]] # total bredd, indexes
+# 	console.log "groups #{groups}"
+# 	for i in range widths.length 
+# 		[w,index] = widths[i]
+# 		groups[0][0] += w # bredderna
+# 		groups[0][1].push index # indexen
+# 		groups.sort (a,b) -> parseInt(a[0]) - parseInt(b[0])  # sortera på bredd
+# 		#console.log "groups #{groups}"
+# 	last = groups[groups.length-1] # bredaste gruppen
+# 	#groups = groups.map (group) -> group[1] # skippa bredderna
+# 	for group in groups
+# 		console.log "group",group
+# 	groups
+
+
+# w1 = []
+# w2 = []
+# for i in range 20
+# 	x = Math.trunc 50 + 50*Math.random()
+# 	w1.push x
+# 	w2.push x
+# console.log 'START'
+# console.log 'w1',w1
+# #console.log 'w2',w2
+# grupperaN w1,3
+# grupperaRandom w2,3,1000
+
+
