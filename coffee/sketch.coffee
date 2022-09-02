@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 D'
+TITLE1 = '2022-08-20 E'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -265,7 +265,7 @@ createScrollers = () ->
 		x0 = xoff + 0.4 * DX
 		y0 = YOFF + 0.4 * DY + DY*i
 		y1 = y0 - 0.1 * DY # 0.12
-		scrollers.push new TextDisplay x0, y1, width/2, 1.2 * textsize, textsize
+		scrollers.push new TextDisplay x0, y1, width/2, 1.1 * textsize, textsize
 
 updateScrollers = () ->
 	keys = _.keys scenes
@@ -392,7 +392,7 @@ setup = ->
 	scrollers = []
 	#createCanvas 1420,722 # iPad
 	createCanvas innerWidth,innerHeight
-	TS = 0.030 * height # 0.038
+	TS = 0.035 * height # 0.038
 	textsize = TS
 	SCENES = _.size scenes
 	DX = Math.round 0.02 * width
