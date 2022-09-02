@@ -336,7 +336,11 @@ draw = ->
 	drawGrid ts,left
 	drawInfo ts
 	drawHeader()
- 
+	fill 'white'
+	text innerWidth, 40,40
+	text innerHeight, 40,80
+	text innerWidth/innerHeight, 40,120
+
 	size = 0.1*width
 	image img,10,height-1.1*size,size,size
 
@@ -386,6 +390,7 @@ setup = ->
 	textsize = 20
 	scrollers = []
 	createCanvas innerWidth,innerHeight
+	console.log width,height,width/height
 	SCENES = _.size scenes
 	DX = Math.round 0.02 * width
 	DY = 0.9 * height/SCENES
