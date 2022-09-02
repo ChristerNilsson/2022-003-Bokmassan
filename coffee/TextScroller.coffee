@@ -6,13 +6,11 @@ class TextDisplay
 		@dw = Math.round @dw
 		@dh = Math.round @dh
 		@ts = Math.round @ts
+		@pg = createGraphics @dw, @dh * 5 # Klarar ABCAB
 
 	update : (text) ->
 		@text = text
-		if text.length==0 
-			@names = []
-		else
-			@names = @text.split ', '
+		@names = if text.length==0 then [] else @text.split ', '
 		if @names.length == 0 then @groups = []
 		if @names.length == 1 then @groups = [[0]]
 		textSize @ts
@@ -28,10 +26,9 @@ class TextDisplay
 		@groups = @groups.map (group) -> group.sort()
 		@groups.sort()
 
-		# skapa image med grupperna A, ABA, ABCAB, ABCDAB
+		# skapa image med grupperna A, AB, ABCAB, ABCDAB
 		n = @groups.length
-		if n < 2 then n++ else n+=2
-		@pg = createGraphics @dw, @dh * n
+		if n < 2 then n+=1 else n+=2
 		@pg.textSize @ts
 		@pg.background "black"
 		@p = 0
@@ -43,7 +40,7 @@ class TextDisplay
 				index = group[j]
 				name = @names[index]
 				if j < group.length-1 then name += SEPARATOR
-				if index == 0 then @pg.fill 'white' else @pg.fill 'gray'
+				@pg.fill if index == 0 then 'white' else 'gray'
 				@pg.text name, wx,wy
 				wx += @pg.textWidth name
 

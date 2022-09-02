@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 A'
+TITLE1 = '2022-08-20 B'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -276,7 +276,6 @@ updateScrollers = () ->
 		else
 			event = scenes[key][index]
 			scrollers[i].update event[3]
-			console.log scrollers[i]
 
 drawInfo = (ts) ->
 	avslutade = 0
@@ -393,4 +392,3 @@ setup = ->
 	XOFF = 0.0 * DX # pixels
 	YOFF = 0.8 * DY # pixels
 	createScrollers()
-	console.log 'setup done!'
