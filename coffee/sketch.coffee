@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 B'
+TITLE1 = '2022-08-20 C'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -38,8 +38,8 @@ pretty = (m) -> # pretty(67) = "01:07"
 	if min < 10 then min = '0' + min
 	h + ':' + min
 
-autonomous = true 
-timestamp = minutes 1512
+autonomous = false # true 
+timestamp = minutes 1420
 
 event = (scen,lst) ->
 	lst[0] = minutes lst[0]
@@ -336,10 +336,11 @@ draw = ->
 	drawGrid ts,left
 	drawInfo ts
 	drawHeader()
-	fill 'white'
-	text innerWidth, 40,40
-	text innerHeight, 40,80
-	text innerWidth/innerHeight, 40,120
+
+	# fill 'white'
+	# text innerWidth, 40,40
+	# text innerHeight, 40,80
+	# text innerWidth/innerHeight, 40,120
 
 	size = 0.1*width
 	image img,10,height-1.1*size,size,size
@@ -389,8 +390,8 @@ setup = ->
 	displaywidth = 150
 	textsize = 20
 	scrollers = []
+	#createCanvas 1420,722 # iPad
 	createCanvas innerWidth,innerHeight
-	console.log width,height,width/height
 	SCENES = _.size scenes
 	DX = Math.round 0.02 * width
 	DY = 0.9 * height/SCENES

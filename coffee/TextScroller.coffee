@@ -16,7 +16,7 @@ class TextDisplay
 		textSize @ts
 		twSEP = textWidth SEPARATOR
 		widths = @names.map (name,index) -> [Math.round(textWidth(name)),index]
-		widths.sort()
+		widths.sort (a,b) -> parseInt(a[0]) - parseInt(b[0])
 		widths.reverse()
 		summa = 0
 		for [w,index] in widths
@@ -54,19 +54,28 @@ class TextDisplay
 			@p = (@p+0.25) % (@pg.height-2*@dh)
 
 	gruppera : (widths,dw) ->
-		# prova att få in alla i EN grupp.
+		# prova att få in alla i TVÅ grupper.
 		# Går inte det, öka antal grupper
-		n = 1
+		n = 2
+		widths.sort (a,b) -> parseInt(a[0]) - parseInt(b[0]) # annars sorteras strängar
+		widths.reverse()
+		#console.log @names
+		#console.log "widths #{widths}"
 		while true
 			groups = []
 			for i in range n 
 				groups.push [0,[]] # total bredd, indexes
+			#console.log "groups #{groups}"
 			for i in range widths.length 
 				[w,index] = widths[i]
 				groups[0][0] += w # bredderna
 				groups[0][1].push index # indexen
-				groups.sort() # sortera på bredd
+				groups.sort (a,b) -> parseInt(a[0]) - parseInt(b[0])  # sortera på bredd
+				#console.log "groups #{groups}"
 			last = groups[groups.length-1] # bredaste gruppen
 			if last[0] + (last[1].length-1) * twSEP <= dw
-				return groups.map (group) -> group[1] # skippa bredderna
+				groups = groups.map (group) -> group[1] # skippa bredderna
+				#for group in groups
+					#console.log "group",group
+				return groups
 			n++
