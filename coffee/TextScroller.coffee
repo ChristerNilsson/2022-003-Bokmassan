@@ -6,7 +6,7 @@ class TextDisplay
 		@dw = Math.round @dw
 		@dh = Math.round @dh
 		@ts = Math.round @ts
-		@pg = createGraphics @dw, @dh * 5 # Klarar ABCAB
+		@pg = createGraphics @dw, @dh * 5 # Klarar ABCAB med scroll
 
 	update : (text) ->
 		@text = text
@@ -54,11 +54,11 @@ class TextDisplay
 			@p = (@p+0.25) % (@pg.height-2*@dh)
 
 	gruppera : (widths,dw) ->
-		# prova att få in alla i TVÅ grupper.
+		# prova att få in alla i först EN, därefter TVÅ grupper.
 		# Går inte det, öka antal grupper
-		n = 2
-		widths.sort (a,b) -> parseInt(a[0]) - parseInt(b[0]) # annars sorteras strängar
-		widths.reverse()
+		n = if widths.length == 1 then 1 else 2
+		widths.sort (a,b) -> parseInt(a[0]) - parseInt(b[0]) # annars sorteras talen som strängar
+		widths.reverse() # små bredder först
 		#console.log @names
 		#console.log "widths #{widths}"
 		while true

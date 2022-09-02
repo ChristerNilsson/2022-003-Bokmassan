@@ -1,5 +1,5 @@
 TITLE0 = 'Svenska bok- och mediemässan'
-TITLE1 = '2022-08-20 C'
+TITLE1 = '2022-08-20 D'
 scenes = {}
 SCENES = 0
 XOFF = 0 # pixels
@@ -23,6 +23,7 @@ avslutade = 0
 pågående = 0
 kommande = 0
 p = 0
+TS = 0
 
 minutes = (hhmm) ->
 	h = Math.floor hhmm/100
@@ -128,7 +129,7 @@ drawTitle = ->
 	push()
 	fill 'darkgray'
 	textAlign RIGHT
-	textSize 0.038 * height
+	textSize TS
 	text TITLE1,width,0.4*YOFF
 	text TITLE0,width,0.9*YOFF
 	pop()
@@ -136,7 +137,7 @@ drawTitle = ->
 rutnät = ->
 	push()
 	stroke 'darkgray'
-	textSize 0.02*height
+	# textSize 0.02*height
 	for i in range N+1
 		x = XOFF + i * DX
 		line x, YOFF, x, YOFF+SCENES*DY
@@ -147,7 +148,7 @@ rutnät = ->
 
 tider = (ts,left) ->
 	push()
-	textSize 0.038 * height
+	textSize TS
 	fill "darkgray"
 	text pretty(left),XOFF,0.7*DY
 	push()
@@ -195,7 +196,7 @@ drawBox = (i,event,ts) ->
 	d = duration + hhmm - timestamp
 	if hhmm > timestamp then d = duration
 	if d > 0 
-		textSize 0.038*height
+		textSize TS
 		textAlign CENTER,CENTER
 		fill "black"
 		text d,x+duration/5*DX/2, YOFF + 0.55*DY + DY*i
@@ -209,7 +210,7 @@ findIndex = (events, timestamp) ->
 
 drawHeader = ->
 	push()
-	textSize 0.038 * height
+	textSize TS
 	xoff = XOFF + N*DX
 	yoff = 0
 
@@ -260,11 +261,11 @@ createScrollers = () ->
 	keys = _.keys scenes
 	for i in range keys.length
 		xoff = XOFF + N*DX
-		textsize = 0.038 * height
+		textsize = TS
 		x0 = xoff + 0.4 * DX
 		y0 = YOFF + 0.4 * DY + DY*i
 		y1 = y0 - 0.1 * DY # 0.12
-		scrollers.push new TextDisplay x0, y1, width/2, 1.0 * textsize, textsize
+		scrollers.push new TextDisplay x0, y1, width/2, 1.2 * textsize, textsize
 
 updateScrollers = () ->
 	keys = _.keys scenes
@@ -294,7 +295,7 @@ drawInfo = (ts) ->
 		if index != -1
 			xoff = XOFF + N*DX
 			push()
-			textSize 0.038*height
+			textSize TS
 			fill "black"
 			sc()
 			rect xoff+2, YOFF+DY*i,width,DY
@@ -388,10 +389,11 @@ preload = ->
 
 setup = ->
 	displaywidth = 150
-	textsize = 20
 	scrollers = []
 	#createCanvas 1420,722 # iPad
 	createCanvas innerWidth,innerHeight
+	TS = 0.030 * height # 0.038
+	textsize = TS
 	SCENES = _.size scenes
 	DX = Math.round 0.02 * width
 	DY = 0.9 * height/SCENES
